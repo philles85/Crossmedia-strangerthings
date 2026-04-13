@@ -5,7 +5,7 @@ class PubSub {
     }
 
 
-    static publish(eventName, payload) {
+    publish(eventName, payload) {
         for (let callback in this.listeners[eventName]) {
             let executeCallback = callback(payload);
 
@@ -13,18 +13,17 @@ class PubSub {
     }
 
 
-    static subscribe(eventName, callback) {
+    subscribe(eventName, callback) {
 
         if (!this.listeners[eventName]) {
             this.listeners[eventName] = [callback];
-
         } else {
             this.listeners[eventName] = [...this.listeners[eventName], callback];
         };
     }
 
 
-    static unsubscribe(eventName, callback) {
+    unsubscribe(eventName, callback) {
         if (!this.listeners[eventName]) {
             return
         } else {
