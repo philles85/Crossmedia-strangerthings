@@ -16,7 +16,7 @@ class Store {
         } else {
             Object.assign(this.state, newState);
         }
-
+        
         for (let key in newState) {
             this.notify(key, newState[key]);
         }
