@@ -13,7 +13,6 @@ const EVENTS = {
             ENDING: "views:page:ending",
 
             SEARCHPARAMS: "views:page:searchparams"
-
         },
 
         POPUP: {
@@ -26,12 +25,12 @@ const EVENTS = {
         TIMER: {
             START: "gamesystems:timer:start",
 
-            MIDGAME: "gamesystems:timer:midgame",
-
             END: "gamesystems:timer:end"
         },
 
         NAVIGATOR: {
+
+
 
 
         }
