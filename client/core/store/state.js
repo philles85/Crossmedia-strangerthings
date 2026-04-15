@@ -2,13 +2,30 @@
 
 const state = {
 
-    "array1": [
-
+    navigation: [
+        //example object
+        {
+            cordinates: "40.7128 N",
+            direction: "left",
+            hasPassed: false,
+        }
     ],
 
-    "array2": [
-
+    timer: [
+        {
+            time: 180,
+            hasPassed: false
+        },
+        {
+            time: 90,
+            hasPassed: false
+        }
     ],
+
+    currentTime: {
+
+
+    },
 
     "array3": [
 

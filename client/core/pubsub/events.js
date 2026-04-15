@@ -4,11 +4,15 @@ const EVENTS = {
         PAGE: {
             STARTPAGE: "views:page:start",
 
+            PODCAST: "view:page:podcast",
+
             GAMETIME: "views:page:gameplay",
 
             NAVIGATION: "views:page:navigation",
 
-            ENDING: "views:page:ending"
+            ENDING: "views:page:ending",
+
+            SEARCHPARAMS: "views:page:searchparams"
 
         },
 
@@ -28,7 +32,7 @@ const EVENTS = {
         },
 
         NAVIGATOR: {
-            
+
 
         }
 

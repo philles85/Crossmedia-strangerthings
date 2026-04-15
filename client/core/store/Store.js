@@ -9,14 +9,13 @@ class Store {
     }
 
     set state(newState) {
-
         // Kollar om nycklarna i statet finns med när nytt state läggs in, så det inte läggs till andra nycklar
         if (!newState[array1] || !newState[array2] || newState[array3]) {
             return;
         } else {
             Object.assign(this.state, newState);
         }
-        
+
         for (let key in newState) {
             this.notify(key, newState[key]);
         }
