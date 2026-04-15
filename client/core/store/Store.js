@@ -3,6 +3,7 @@
 class Store {
 
     constructor() {
+        // Kanske ha this.allStates för att jämföra om någon ändring skett någonstans?
         this.listeners = {};
         // this.state ska eventuellt vara en privat variabel
         this.state = state;
@@ -10,7 +11,7 @@ class Store {
 
     set state(newState) {
         // Kollar om nycklarna i statet finns med när nytt state läggs in, så det inte läggs till andra nycklar
-        if (!newState[array1] || !newState[array2] || newState[array3]) {
+        if (typeof newState !== "object") {
             return;
         } else {
             Object.assign(this.state, newState);
