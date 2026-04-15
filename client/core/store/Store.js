@@ -11,7 +11,7 @@ class Store {
 
     set state(newState) {
         // Kollar om nycklarna i statet finns med när nytt state läggs in, så det inte läggs till andra nycklar
-        if (typeof newState !== "object") {
+        if (typeof newState !== "object" || !Array.isArray(newState)) {
             return;
         } else {
             Object.assign(this.state, newState);
