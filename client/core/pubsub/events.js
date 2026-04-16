@@ -2,17 +2,19 @@ const EVENTS = {
 
     VIEWS: {
         PAGE: {
-            STARTPAGE: "views:page:start",
+            SHOW: {
+                STARTPAGE: "views:page:startpage:show",
 
-            PODCAST: "view:page:podcast",
+                PODCAST: "views:page:podcast:show",
 
-            GAMETIME: "views:page:gameplay",
+                GAMETIME: "views:page:gameplay:show",
 
-            NAVIGATION: "views:page:navigation",
+                NAVIGATION: "views:page:navigation:show",
 
-            ENDING: "views:page:ending",
+                ENDING: "views:page:ending:show",
 
-            SEARCHPARAMS: "views:page:searchparams"
+                SEARCHPARAMS: "views:page:searchparams:show"
+            }
         },
 
         POPUP: {
@@ -21,7 +23,7 @@ const EVENTS = {
 
     },
 
-    GAMESYSTEMS: {
+    GAME: {
         TIMER: {
             START: "gamesystems:timer:start",
 
@@ -29,9 +31,7 @@ const EVENTS = {
         },
 
         NAVIGATOR: {
-
-
-
+            
 
         }
 

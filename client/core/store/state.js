@@ -2,17 +2,27 @@
 
 const state = {
 
-    directions: {
-        N: "straigt",
-        S: "backwards",
-        W: "left",
-        E: "right"
+    // Kolla genom state och se vad som behövs, främst bland annat vad användaren behöver, alltså typ current som påverkar beroende på
+    // om någon current ändras, då ska det påverka allt på sidan, allt annat blir fördefinerat
+
+    currentDirection: {
+        // example
+        direction: "N"
     },
 
     currentTime: {
+        // example
         time: 5000000
     },
 
+
+    directions: {
+        // I vilken riktning sker med grader
+        N: 0,
+        E: 90,
+        S: 180,
+        W: 270
+    },
     coordinates: [
         //example object
         {
