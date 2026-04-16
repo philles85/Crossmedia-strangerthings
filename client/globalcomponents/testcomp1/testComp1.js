@@ -23,15 +23,22 @@ class HeaderComp extends HTMLElement {
                 }
                 #header{
                     text-align: center;
+                    margin-top: 84px;
+                    background: black;
+                }
+                h1, h2{
+                    margin: 0px;
+                    letter-spacing: -1px;
                 }
                 h1{
                     font-family: "Benguiat_outlined";
-                    -webkit-text-stroke: 1px #A10303;
+                    -webkit-text-stroke: 2px #A10303;
+                    color: transparent;
                     font-size: 48px;
                 }
                 h2{
                     font-family: "Benguiat_bold";
-                    color: black;
+                    color: white;
                     font-size: 24px;
                 }
             </style>
