@@ -28,13 +28,14 @@ class HeaderComp extends HTMLElement {
                 }
                 h1, h2{
                     margin: 0px;
+                    margin: 5px;
                     letter-spacing: -1px;
-                }
+                }                
                 h1{
-                    font-family: "Benguiat_outlined";
                     -webkit-text-stroke: 2px #A10303;
                     color: transparent;
                     font-size: 48px;
+                    line-height: 48px;
                 }
                 h2{
                     font-family: "Benguiat_bold";

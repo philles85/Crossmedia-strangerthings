@@ -5,6 +5,6 @@ import "./views/podcast/PostCastView.js";
 
 
 // IMPORT GLOBALCOMPONENTS HERE
-import "./globalcomponents/testcomp1/testComp1.js"
+import "./globalcomponents/headerComp/headerComp.js"
 
 
