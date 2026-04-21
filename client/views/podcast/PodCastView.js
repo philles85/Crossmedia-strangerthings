@@ -13,6 +13,7 @@ class PodCastView {
     subs() {
         pubsub.subscribe(EVENTS.VIEWS.PAGE.SHOW.PODCAST, () => {
             this.render();
+            console.log("hejs")
         })
     }
 

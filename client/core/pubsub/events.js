@@ -3,17 +3,17 @@ export const EVENTS = {
     VIEWS: {
         PAGE: {
             SHOW: {
-                STARTPAGE: "views:page:startpage:show",
+                STARTPAGE: "views:page:show:startpage",
 
-                PODCAST: "views:page:podcast:show",
+                PODCAST: "views:page:show:podcast",
 
-                GAMETIME: "views:page:gameplay:show",
+                GAMETIME: "views:page:show:gametime",
 
-                NAVIGATION: "views:page:navigation:show",
+                NAVIGATION: "views:page:show:navigation",
 
-                ENDING: "views:page:ending:show",
+                ENDING: "views:page:show:ending",
 
-                SEARCHPARAMS: "views:page:searchparams:show"
+                SEARCHPARAMS: "views:page:show:searchparams"
             }
         },
 

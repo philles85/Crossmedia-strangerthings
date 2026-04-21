@@ -18,8 +18,8 @@ class Router {
         let pageName = cleanPath.toUpperCase();
 
         // Publicerar ett event utifrån vilken path det är
-        console.log(newUrl);
-        pubsub.publish(EVENTS.VIEWS.PAGE[pageName], {
+        console.log(EVENTS.VIEWS.PAGE.SHOW[pageName]);
+        pubsub.publish(EVENTS.VIEWS.PAGE.SHOW[pageName], {
             url: newUrl
         })
 

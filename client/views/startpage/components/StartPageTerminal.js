@@ -16,27 +16,49 @@ class StartPageTerminal extends HTMLElement {
 
         inputField.addEventListener("keydown", (event) => {
             if (event.key == "enter") {
-                if (inputField.value == "") { }
+                if (inputField.value == "stranger_things") { }
             }
         })
 
     }
 
     // LOGIC FOR COMPONENT
-    logic() {
+    async logic() {
         // TEST FOR STARTTEXT - NOT WORKING CURRENTLY
+        function resolvePromise(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
         let startTextArray = ["cd ..", "cd hidden", "ls", "access.log", "nodes_04", "signal.tmp"];
 
-        for (let text of startTextArray) {
+        for (let string of startTextArray) {
+
             let p = document.createElement("p");
             this.shadowRoot.querySelector("#startText").append(p);
-            for (let letter of text) {
-                setTimeout(() => {
+            let span;
+
+            if (string.includes("cd") || string.includes("ls")) {
+                span = document.createElement("span")
+                p.append(span)
+            }
+
+
+            for (let letter of string) {
+                if (!span) {
                     p.innerHTML += letter;
-                }, 500)
+                } else {
+                    span.innerHTML += letter;
+                }
+                await resolvePromise(100);
             }
         }
+
+        this.shadowRoot.querySelector("#commandPrompt").style = "display: flex;"
+
+
+
     }
+
 
     // OLD HTML FOR #STARTTEXT
     // <p><span>cd</span> ..</p>
@@ -73,7 +95,7 @@ class StartPageTerminal extends HTMLElement {
                     gap: 30px;
                 }
                 #commandPrompt {
-                    display: flex;
+                    display: none;
                     gap: 10px;
                 }
                 #proceedPart {
