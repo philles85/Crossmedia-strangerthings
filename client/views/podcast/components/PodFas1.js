@@ -1,5 +1,3 @@
-import PubSub from "../../../core/pubsub/Pubsub.js"
-import EVENTS from "../../../core/pubsub/events.js"
 
 class PodFas1 extends HTMLElement {
 
@@ -10,9 +8,7 @@ class PodFas1 extends HTMLElement {
     }
 
     subs() {
-        PubSub.subscribe(EVENTS.VIEWS.PAGE.SHOW.PODCAST, () => {
-            this.render();
-        })
+
     }
 
     render() {

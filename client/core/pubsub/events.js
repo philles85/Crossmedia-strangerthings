@@ -1,4 +1,4 @@
-const EVENTS = {
+export const EVENTS = {
 
     VIEWS: {
         PAGE: {
@@ -31,7 +31,7 @@ const EVENTS = {
         },
 
         NAVIGATOR: {
-            
+
 
         }
 

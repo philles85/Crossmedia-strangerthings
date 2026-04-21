@@ -4,7 +4,7 @@ class StartPageView {
 
     constructor() {
         this.appContent = document.querySelector("#app");
-        this.render();
+        // this.render();
     }
 
     subs() {

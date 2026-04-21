@@ -1,3 +1,6 @@
+import { pubsub } from "../pubsub/Pubsub.js";
+import { EVENTS } from "../pubsub/events.js";
+
 class Router {
 
     constructor(baseUrl) {
@@ -6,15 +9,17 @@ class Router {
 
 
     updateUrl(path) {
-        history.pushState({ "": path });
+        history.pushState({}, { "": path });
 
         let newUrl = new URL(path, this.baseUrl);
         // let urlPath = newUrl.pathname;
         // let searchParams = newUrl.searchParams;
-        let pageName = path.toUpperCase();
+        let cleanPath = path.split("/").pop();
+        let pageName = cleanPath.toUpperCase();
 
         // Publicerar ett event utifrån vilken path det är
-        PubSub.publish(EVENTS.VIEWS.PAGE[pageName], {
+        console.log(newUrl);
+        pubsub.publish(EVENTS.VIEWS.PAGE[pageName], {
             url: newUrl
         })
 
@@ -29,4 +34,4 @@ class Router {
 
 }
 
-export const Router = new Router("http://localhost:8000");
+export const router = new Router("http://localhost:8000");
