@@ -24,11 +24,9 @@ class HeaderComp extends HTMLElement {
                 #header{
                     text-align: center;
                     margin-top: 84px;
-                    background: black;
                 }
                 h1, h2{
                     margin: 0px;
-                    margin: 5px;
                     letter-spacing: -1px;
                 }                
                 h1{
