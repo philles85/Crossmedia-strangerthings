@@ -1,13 +1,15 @@
 class PubSub {
 
     constructor() {
-        this.listeners = {};
+        this.listeners = {
+
+        };
     }
 
     publish(eventName, payload) {
-        for (let callback in this.listeners[eventName]) {
-            let executeCallback = callback(payload);
-
+        console.log(this.listeners[eventName])
+        for (let callback of this.listeners[eventName]) {
+            callback(payload);
         }
     }
 
@@ -16,6 +18,7 @@ class PubSub {
 
         if (!this.listeners[eventName]) {
             this.listeners[eventName] = [callback];
+
         } else {
             this.listeners[eventName] = [...this.listeners[eventName], callback];
         };
@@ -35,4 +38,4 @@ class PubSub {
 
 }
 
-export const PubSub = new PubSub (); 
+export const pubsub = new PubSub(); 
