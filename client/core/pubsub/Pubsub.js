@@ -34,3 +34,5 @@ class PubSub {
 
 
 }
+
+export const PubSub = new PubSub (); 

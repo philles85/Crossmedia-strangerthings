@@ -29,4 +29,4 @@ class Router {
 
 }
 
-new Router("http://localhost:8000");
+export const Router = new Router("http://localhost:8000");

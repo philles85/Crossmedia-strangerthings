@@ -1,6 +1,6 @@
 // IMPORT VIEWS HERE
 import "./views/startpage/StartpageView.js";
-import "./views/podcast/PostCastView.js";
+import "./views/podcast/PostFas1.js";
 
 
 
@@ -8,3 +8,7 @@ import "./views/podcast/PostCastView.js";
 import "./globalcomponents/headerComp/headerComp.js"
 
 
+
+import Router from "./core/router/Router.js";
+
+Router.updateUrl(window.location.pathname)
