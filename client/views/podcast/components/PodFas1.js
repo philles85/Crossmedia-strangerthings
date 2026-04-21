@@ -4,7 +4,7 @@ class PodFas1 extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
-        this.subs();
+        this.render();
     }
 
     subs() {
@@ -17,7 +17,7 @@ class PodFas1 extends HTMLElement {
             </style>
             <div id="header">
                 <audio controls autoplay>
-                    <source src="../podcasts/testSound.mp3" type="audio/mpeg"> 
+                    <source src="/views/podcast/podcasts/testSound.mp3" type="audio/mpeg"> 
 
                 </audio>
                 

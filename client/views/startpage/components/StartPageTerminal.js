@@ -4,7 +4,8 @@ class StartPageTerminal extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.render();
-        this.logic();
+        this.eventListeners();
+        this.logic("start");
     }
 
     subs() {
@@ -15,43 +16,89 @@ class StartPageTerminal extends HTMLElement {
         let inputField = this.shadowRoot.querySelector("input");
 
         inputField.addEventListener("keydown", (event) => {
-            if (event.key == "enter") {
-                if (inputField.value == "stranger_things") { }
+            if (event.key == "Enter") {
+                if (inputField.value == "stranger_things") {
+                    this.logic("end");
+                }
             }
         })
 
     }
 
     // LOGIC FOR COMPONENT
-    async logic() {
+    async logic(type) {
         // TEST FOR STARTTEXT - NOT WORKING CURRENTLY
         function resolvePromise(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
-        let startTextArray = ["cd ..", "cd hidden", "ls", "access.log", "nodes_04", "signal.tmp"];
+        // let string = "cd ..-cd hidden-ls_access.log-nodes_04-signal.tmp"
 
-        for (let string of startTextArray) {
+        if (type == "end") {
+
+            let terminalEndText = ["WARNING: ", "if ", "you ", "choose ", "to ", "enter, ", "you ", "will ", "not ", "be ", "allowed ", "to ", "leave ", "this ", "website. "];
+
+
+            let h3 = document.createElement("h3");
+            this.shadowRoot.querySelector("#responseText").append(h3);
 
             let p = document.createElement("p");
-            this.shadowRoot.querySelector("#startText").append(p);
-            let span;
-
-            if (string.includes("cd") || string.includes("ls")) {
-                span = document.createElement("span")
-                p.append(span)
-            }
+            this.shadowRoot.querySelector("#responseText").append(p);
 
 
-            for (let letter of string) {
-                if (!span) {
-                    p.innerHTML += letter;
-                } else {
-                    span.innerHTML += letter;
+            for (let string of terminalEndText) {
+
+                for (let letter of string) {
+                    if (string.includes("WARNING:")) {
+                        h3.innerHTML += letter;
+
+                    } else {
+                        p.innerHTML += letter;
+
+                    }
+                    await resolvePromise(100);
                 }
-                await resolvePromise(100);
             }
+
+        } else if (type == "start") {
+
+            let startTextArray = ["cd ..", "cd", "hidden", "ls", "access.log", "nodes_04", "signal.tmp"];
+
+            for (let string of startTextArray) {
+
+                let p = document.createElement("p");
+                this.shadowRoot.querySelector("#startText").append(p);
+
+                let span;
+
+                if (string.includes("cd") || string.includes("ls")) {
+                    span = document.createElement("span")
+                    span.id = "orangeSpan";
+                    p.append(span)
+                }
+
+
+                for (let letter of string) {
+                    if (!span) {
+
+                        p.innerHTML += letter;
+
+                    } else {
+                        span.innerHTML += letter;
+
+                        if (span.innerHTML.includes("cd ")) {
+                            console.log(letter);
+                            p.innerHTML += letter;
+                        }
+                    }
+                    await resolvePromise(100);
+                }
+            }
+
+
         }
+
+
 
         this.shadowRoot.querySelector("#commandPrompt").style = "display: flex;"
 
@@ -79,8 +126,11 @@ class StartPageTerminal extends HTMLElement {
                     color: red;
                     margin: 0;
                 }
-                span {
+                #orangeSpan {
                     color: orange;
+                }
+                #redSpan {
+                    color: red;
                 }
                 input {
                     background-color: black;
@@ -99,7 +149,7 @@ class StartPageTerminal extends HTMLElement {
                     gap: 10px;
                 }
                 #proceedPart {
-                    display: flex;
+                    display: none;
                     flex-direction: column;
                 }
                 button {
@@ -121,8 +171,7 @@ class StartPageTerminal extends HTMLElement {
                 </div>
 
                 <div id="responseText">
-                    <h3>WARNING:</h3>
-                    <p>if you choose to enter, you will not be allowed to leave this website.</p>
+                    
                 </div>
 
                 <div id="proceedPart">
