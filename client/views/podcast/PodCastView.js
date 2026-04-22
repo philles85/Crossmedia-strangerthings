@@ -20,6 +20,7 @@ class PodCastView {
 
     render() {
         this.appContent.innerHTML = `
+            <header-comp></header-comp>
             <pod-fas1></pod-fas1">
         `;
     }

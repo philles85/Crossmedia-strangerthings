@@ -131,12 +131,6 @@ class StartPageTerminal extends HTMLElement {
                     border-bottom: 2px solid green;
                     color: green;
                 }
-                #terminal {
-                    display: flex;
-                    flex-direction: column;
-                    padding: 70px;
-                    gap: 30px;
-                }
                 #commandPrompt {
                     display: none;
                     gap: 10px;
@@ -153,7 +147,7 @@ class StartPageTerminal extends HTMLElement {
                 }
             </style>
 
-            <div id="terminal">
+            <div>
                 <div id="startText">
                     
                 </div>
