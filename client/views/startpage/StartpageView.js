@@ -18,8 +18,12 @@ class StartPageView {
 
     render() {
         this.appContent.innerHTML = `
-            <header-comp></header-comp>
-            <start-page-terminal></start-page-terminal>
+            <header>
+                <header-comp></header-comp>
+            <header>
+            <main>
+                <start-page-terminal></start-page-terminal>
+            </main>
         `;
     }
 
