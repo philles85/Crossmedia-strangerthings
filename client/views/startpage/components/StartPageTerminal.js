@@ -60,6 +60,8 @@ class StartPageTerminal extends HTMLElement {
                 }
             }
 
+            this.shadowRoot.querySelector("#proceedPart").style = "display: flex;"
+
         } else if (type == "start") {
 
             let startTextArray = ["cd ..", "cd", "hidden", "ls", "access.log", "nodes_04", "signal.tmp"];
@@ -99,21 +101,12 @@ class StartPageTerminal extends HTMLElement {
         }
 
 
-
         this.shadowRoot.querySelector("#commandPrompt").style = "display: flex;"
 
 
 
     }
 
-
-    // OLD HTML FOR #STARTTEXT
-    // <p><span>cd</span> ..</p>
-    // <p><span>cd</span> hidden</p>
-    // <span>ls</span>
-    // <p>access.log</p>
-    // <p>nodes_04</p>
-    // <p>signal.tmp</p>
 
     render() {
         this.shadowRoot.innerHTML = `

@@ -11,6 +11,10 @@ class Router {
     updateUrl(path) {
         history.pushState({}, { "": path });
 
+        // Lägg in en kontroll här om exempelvis url: index.html?=start, Vi måste ha en start url så webshare kan navigera en vidare
+        // eftersom webshare defaultar till index.html alltid, och vi kan inte använda interna sökvägar via webshare för starta på sidan
+        // efter det kan våra sökvägar användas för att navigera en vidare och rendera nytt.
+
         let newUrl = new URL(path, this.baseUrl);
         // let urlPath = newUrl.pathname;
         // let searchParams = newUrl.searchParams;

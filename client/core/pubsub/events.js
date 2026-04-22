@@ -7,7 +7,7 @@ export const EVENTS = {
 
                 PODCAST: "views:page:show:podcast",
 
-                GAMETIME: "views:page:show:gametime",
+                GAMETIME: "views:page:show:TIMER",
 
                 NAVIGATION: "views:page:show:navigation",
 
