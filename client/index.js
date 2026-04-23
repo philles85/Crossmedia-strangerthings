@@ -1,6 +1,7 @@
 // IMPORT VIEWS HERE
 import "./views/startpage/StartpageView.js";
 import "./views/podcast/PodCastView.js";
+import "./views/timer/TimerView.js";
 
 
 // IMPORT GLOBALCOMPONENTS HERE

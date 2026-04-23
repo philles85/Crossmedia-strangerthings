@@ -10,7 +10,7 @@ class PodFas1 extends HTMLElement {
     subs() {
 
     }
-    d3_logic (){
+    d3_logic() {
         const hSvg = 70, wSvg = 200;
         const svg = d3.select("svg")
                     .attr("height", hSvg)
@@ -18,7 +18,7 @@ class PodFas1 extends HTMLElement {
         console.log(svg)
         let randomHeight = Math.floor(10 * Math.random())
         console.log(randomHeight)
-        for(let i = 0; i < 10; i++){
+        for (let i = 0; i < 10; i++) {
             console.log(i)
             svg.append("rect")
                 .attr("height", randomHeight)
