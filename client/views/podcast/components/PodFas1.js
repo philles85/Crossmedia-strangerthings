@@ -10,6 +10,7 @@ class PodFas1 extends HTMLElement {
     subs() {
 
     }
+
     d3_logic() {
         const hSvg = 70, wSvg = 200;
         const svg = d3.select("svg")

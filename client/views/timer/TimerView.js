@@ -18,7 +18,7 @@ class StartPageView {
 
     render() {
         this.appContent.innerHTML = `
-            <p>TEST</p>
+            <timer-circle></timer-circle>
         `;
     }
 
