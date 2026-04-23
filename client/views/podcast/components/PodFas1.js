@@ -13,6 +13,8 @@ class PodFas1 extends HTMLElement {
     d3_logic (){
         const hSvg = 70, wSvg = 200;
         const svg = d3.select("svg")
+                    .attr("height", hSvg)
+                    .attr("width", wSvg)
         console.log(svg)
         let randomHeight = Math.floor(10 * Math.random())
         console.log(randomHeight)
