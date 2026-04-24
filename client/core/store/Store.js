@@ -1,20 +1,24 @@
-
+import { state } from "./state.js";
 
 class Store {
 
-    constructor() {
+    constructor(startState) {
         // Kanske ha this.allStates för att jämföra om någon ändring skett någonstans?
         this.listeners = {};
         // this.state ska eventuellt vara en privat variabel
-        this.state = state;
+        this._state = startState;
     }
 
     set state(newState) {
         // Kollar om nycklarna i statet finns med när nytt state läggs in, så det inte läggs till andra nycklar
-        if (typeof newState !== "object" || !Array.isArray(newState)) {
+        if (typeof newState !== "object" || newState == null || Array.isArray(newState)) {
             return;
         } else {
-            Object.assign(this.state, newState);
+            Object.assign(this._state, newState);
+            // state = {
+            //     ...state,
+            //     ...newState
+            // }
         }
 
         for (let key in newState) {
@@ -25,7 +29,7 @@ class Store {
     }
 
     get state() {
-        return this.state;
+        return this._state;
     }
 
     subscribe(key, callback) {
@@ -47,11 +51,6 @@ class Store {
 
     }
 
-
-
-
-
-
-
-
 }
+
+export const store = new Store(state);

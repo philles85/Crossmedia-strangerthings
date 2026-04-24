@@ -1,6 +1,4 @@
-
-
-const state = {
+export const state = {
 
     // Kolla genom state och se vad som behövs, främst bland annat vad användaren behöver, alltså typ current som påverkar beroende på
     // om någon current ändras, då ska det påverka allt på sidan, allt annat blir fördefinerat
@@ -11,8 +9,7 @@ const state = {
     },
 
     currentTime: {
-        // example
-        time: 5000000
+        time: 10800000
     },
 
 
