@@ -41,27 +41,46 @@ class PodFas1 extends HTMLElement {
 
         let allRects = testArray.nodes()
         let timer = null;
-        const audioDOM = this.shadowRoot.querySelector("audio");
+        const audioButton = this.shadowRoot.querySelector("#play");
         let storeState = 0;
+        let audio = new Audio("views/podcast/podcasts/testsound.mp3")
+        let playing = false;
 
-        audioDOM.addEventListener("play", function (){
-            timer = setInterval(function(){
-                if (storeState >= allRects.length){
-                    clearInterval(timer);
-                    timer = 0;
-                    return;
-                }
-                let node = allRects[storeState]
-                d3.select(node).attr("fill", "white")
-                storeState++
-            }, 360)
-
-        })
-
-        audioDOM.addEventListener("pause", function (){
-            clearInterval(timer);
-            timer = 0;
-            return;            
+        audioButton.addEventListener("click", function (){
+            if (playing == false){
+                audio.play()
+                audioButton.removeAttribute("id", "play")
+                audioButton.setAttribute("id", "pause")
+                audioButton.innerHTML = `
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M0 18V0H6V18H0Z" fill="white"/>
+                        <path d="M18 0H12V18H18V0Z" fill="white"/>
+                    </svg>
+                `
+                timer = setInterval(function(){
+                    if (storeState >= allRects.length){
+                        clearInterval(timer);
+                        timer = 0;
+                        return;
+                    }
+                    let node = allRects[storeState]
+                    d3.select(node).attr("fill", "white")
+                    storeState++
+                }, 360)
+                playing = true;
+            } else if (playing == true){
+                audio.pause()
+                audioButton.removeAttribute("id", "pause")
+                audioButton.setAttribute("id", "play")
+                audioButton.innerHTML = `
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M0 18L18 9.29032L0 0V18Z" fill="white"/>                    
+                    </svg>
+                `
+                clearInterval(timer);
+                timer = 0;
+                playing = false;
+            }
         })
 
     }
@@ -74,18 +93,38 @@ class PodFas1 extends HTMLElement {
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
+                    align-items: center;
                     margin: 70px 20px;
+                    gap: 20px;
+                }
+                #play, #pause{
+                    width: 40px;
+                    height: 40px;
+                    background: transparent;
+                    border: 2px solid white;
+                    border-radius: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                #play{
+                    padding: 7px 7px 7px 10px;
                 }
             </style>
             <div id="podcast">
                 <svg id="soundWaves"></svg>
-                <audio controls autoplay>
-                    <source src="views/podcast/podcasts/testSound.mp3" type="audio/mpeg"> 
-
-                </audio> 
+                <button id="play">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M0 18L18 9.29032L0 0V18Z" fill="white"/>                    
+                    </svg>
+                </button>
                 
             </div>
         `
+        // <audio>
+        //       <source src="views/podcast/podcasts/testSound.mp3" type="audio/mpeg"> 
+
+        // </audio>
     }
 }
 
