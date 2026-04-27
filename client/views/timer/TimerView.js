@@ -18,6 +18,7 @@ class StartPageView {
 
     render() {
         this.appContent.innerHTML = `
+            <header-comp></header-comp>
             <timer-circle></timer-circle>
         `;
     }
