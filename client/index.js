@@ -2,7 +2,7 @@
 import "./views/startpage/StartpageView.js";
 import "./views/podcast/PodCastView.js";
 import "./views/timer/TimerView.js";
-
+import "./views/navigation/navigationView.js";
 
 // IMPORT GLOBALCOMPONENTS HERE
 import "./globalcomponents/headerComp/headerComp.js"
