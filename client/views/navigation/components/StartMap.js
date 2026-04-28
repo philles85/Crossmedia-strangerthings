@@ -19,7 +19,8 @@ class StartMap extends HTMLElement {
         let svg = d3.select(Element)
             .select("svg")
             .attr("width", 393)
-            .attr("height", 400);
+            .attr("height", 400)
+            .style("border", "1px solid green");
 
         const options = {
             enableHighAccuracy: true,
@@ -45,7 +46,7 @@ class StartMap extends HTMLElement {
             // let geoCordinatesInput = d3.geoMercator();
             const geoCordinatesInput = d3.geoMercator()
                 .center([55.61, 12.99])
-                .scale(3000)
+                .scale(50000)
                 .translate([393 / 2, 400 / 2]);
 
             let [xCordinat, yCordinat] = geoCordinatesInput([previousCords.latitude.toFixed(2), previousCords.longitude.toFixed(2)]);
