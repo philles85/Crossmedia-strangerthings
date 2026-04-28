@@ -28,10 +28,13 @@ class StartMap extends HTMLElement {
         }
 
         function success(pos) {
-            if (pos.coords != previousCords) {
+            if (!previousCords || pos.coords.latitude != previousCords.latitude || pos.coords.longitude != previousCords.longitude) {
                 pElement.innerHTML = `${pos.coords.latitude}, ${pos.coords.longitude}`;
             }
-            previousCords = pos.coords;
+            previousCords = {
+                latitude: pos.coords.latitude,
+                longitude: pos.coords.longitude
+            }
             console.log(pos.coords);
         }
 
