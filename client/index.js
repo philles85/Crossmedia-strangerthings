@@ -4,6 +4,7 @@ import "./views/podcastFas1/PodFas1View.js";
 import "./views/timer/TimerView.js";
 import "./views/endpage/endView.js";
 
+import "./views/navigation/navigationView.js";
 
 // IMPORT GLOBALCOMPONENTS HERE
 import "./globalcomponents/headerComp/headerComp.js"
