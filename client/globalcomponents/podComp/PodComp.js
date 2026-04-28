@@ -1,4 +1,4 @@
-class PodFas1 extends HTMLElement {
+class Podcast extends HTMLElement {
 
     constructor() {
         super();
@@ -6,7 +6,7 @@ class PodFas1 extends HTMLElement {
         this.render()
         this.d3_logic()
     }
-
+    
     subs() {
 
     }
@@ -44,40 +44,47 @@ class PodFas1 extends HTMLElement {
         let timer = null;
         const audioButton = this.shadowRoot.querySelector("#play");
         let storeState = 0;
-        let audio = new Audio("views/podcast/podcasts/testsound.mp3")
+        let audio = null;
         let playing = false;
+
+        if(this.getAttribute("type") == "fas1") {
+            audio = new Audio("globalcomponents/audios/testsound.mp3");
+
+        } else if (this.getAttribute("type") == "fas2"){
+            audio = new Audio("globalcomponents/audios/testsound.mp3");
+        } 
 
         audioButton.addEventListener("click", function (){
             if (playing == false){
-                audio.play()
-                audioButton.removeAttribute("id", "play")
-                audioButton.setAttribute("id", "pause")
+                audio.play();
+                audioButton.removeAttribute("id", "play");
+                audioButton.setAttribute("id", "pause");
                 audioButton.innerHTML = `
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                         <path d="M0 18V0H6V18H0Z" fill="white"/>
                         <path d="M18 0H12V18H18V0Z" fill="white"/>
                     </svg>
-                `
+                `;
                 timer = setInterval(function(){
                     if (storeState >= allRects.length){
                         clearInterval(timer);
                         timer = 0;
                         return;
                     }
-                    let node = allRects[storeState]
-                    d3.select(node).attr("fill", "white")
-                    storeState++
-                }, 360)
+                    let node = allRects[storeState];
+                    d3.select(node).attr("fill", "white");
+                    storeState++;
+                }, 360);
                 playing = true;
             } else if (playing == true){
-                audio.pause()
-                audioButton.removeAttribute("id", "pause")
-                audioButton.setAttribute("id", "play")
+                audio.pause();
+                audioButton.removeAttribute("id", "pause");
+                audioButton.setAttribute("id", "play");
                 audioButton.innerHTML = `
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                         <path d="M0 18L18 9.29032L0 0V18Z" fill="white"/>                    
                     </svg>
-                `
+                `;
                 clearInterval(timer);
                 timer = 0;
                 playing = false;
@@ -87,7 +94,6 @@ class PodFas1 extends HTMLElement {
     }
 
     render() {
-
         this.shadowRoot.innerHTML = `
             <style>
                 #podcast{
@@ -121,12 +127,8 @@ class PodFas1 extends HTMLElement {
                 </button>
                 
             </div>
-        `
-        // <audio>
-        //       <source src="views/podcast/podcasts/testSound.mp3" type="audio/mpeg"> 
-
-        // </audio>
+        `;
     }
 }
 
-customElements.define("pod-fas1", PodFas1);
+customElements.define("podcast-comp", Podcast);
