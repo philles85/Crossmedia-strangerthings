@@ -36,17 +36,19 @@ class StartMap extends HTMLElement {
         function success(pos) {
             if (!previousCords || pos.coords.latitude != previousCords.latitude || pos.coords.longitude != previousCords.longitude) {
                 Element.querySelector("p").innerHTML = `${pos.coords.latitude}, ${pos.coords.longitude}`;
-            }
-            previousCords = {
-                latitude: pos.coords.latitude,
-                longitude: pos.coords.longitude
+
+                previousCords = {
+                    latitude: pos.coords.latitude,
+                    longitude: pos.coords.longitude
+                }
+
             }
             console.log(pos.coords);
 
             // let geoCordinatesInput = d3.geoMercator();
             const geoCordinatesInput = d3.geoMercator()
-                .center([55.61, 12.99])
-                .scale(50000)
+                .center([13.109433761205093, 55.91591059739929])
+                .scale(20)
                 .translate([393 / 2, 400 / 2]);
 
             let [xCordinat, yCordinat] = geoCordinatesInput([previousCords.latitude.toFixed(2), previousCords.longitude.toFixed(2)]);
