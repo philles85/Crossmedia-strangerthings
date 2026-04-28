@@ -1,4 +1,4 @@
-import "./components/PodFas1.js";
+import "../../globalcomponents/podComp/PodComp.js";
 import { pubsub } from "../../../core/pubsub/Pubsub.js"
 import { EVENTS } from "../../../core/pubsub/events.js"
 
@@ -11,9 +11,8 @@ class PodCastView {
     }
 
     subs() {
-        pubsub.subscribe(EVENTS.VIEWS.PAGE.SHOW.PODCAST, () => {
+        pubsub.subscribe(EVENTS.VIEWS.PAGE.SHOW.ENDING, () => {
             this.render();
-            console.log("hejs")
         })
     }
 
@@ -21,11 +20,9 @@ class PodCastView {
     render() {
         this.appContent.innerHTML = `
             <header-comp></header-comp>
-            <pod-fas1></pod-fas1">
+            <podcast-comp type="fas4"></podcast-comp">
         `;
     }
-
-
 }
 
 new PodCastView();
