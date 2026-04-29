@@ -1,4 +1,4 @@
-import "../../globalcomponents/podComp/PodComp.js";
+import "./components/endGame.js"
 import { pubsub } from "../../../core/pubsub/Pubsub.js"
 import { EVENTS } from "../../../core/pubsub/events.js"
 
@@ -20,7 +20,7 @@ class PodCastView {
     render() {
         this.appContent.innerHTML = `
             <header-comp></header-comp>
-            <podcast-comp type="fas4"></podcast-comp">
+            <end-comp></end-comp>
         `;
     }
 }

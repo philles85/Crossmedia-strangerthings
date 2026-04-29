@@ -2,18 +2,13 @@ import "../../../globalcomponents/podComp/PodComp.js";
 import { pubsub } from "../../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../../core/pubsub/events.js";
 
-class EndGame extends HTMLElement {
+class Riddle extends HTMLElement {
 
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
     }
-
-    subs() {
-        pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.AUDIO, () => {
-            this.render()
-        })
-    }
+    // när input är korrekt ska det skickas en pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.AUDIO)
 
     render(){
         // svara på gåtan för att få podcasten 
@@ -25,4 +20,4 @@ class EndGame extends HTMLElement {
     }
 }
 
-customElements.define("end-comp", EndGame);
+customElements.define("riddle-comp", Riddle);
