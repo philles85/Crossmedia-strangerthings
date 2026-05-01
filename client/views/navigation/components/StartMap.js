@@ -34,24 +34,27 @@ class StartMap extends HTMLElement {
         }
 
         function success(pos) {
-            if (!previousCords || pos.coords.latitude != previousCords.latitude || pos.coords.longitude != previousCords.longitude) {
-                Element.querySelector("p").innerHTML = `${pos.coords.latitude}, ${pos.coords.longitude}`;
+            // if (!previousCords || pos.coords.latitude != previousCords.latitude || pos.coords.longitude != previousCords.longitude) {
+            //     Element.querySelector("p").innerHTML = `${pos.coords.latitude}, ${pos.coords.longitude}`;
 
-                previousCords = {
-                    latitude: pos.coords.latitude,
-                    longitude: pos.coords.longitude
-                }
+            //     previousCords = {
+            //         latitude: pos.coords.latitude,
+            //         longitude: pos.coords.longitude
+            //     }
 
-            }
+            // }
+            Element.querySelector("p").innerHTML = `${pos.coords.latitude}, ${pos.coords.longitude}`;
+
             console.log(pos.coords);
 
             // let geoCordinatesInput = d3.geoMercator();
             const geoCordinatesInput = d3.geoMercator()
                 .center([13.109433761205093, 55.91591059739929])
-                .scale(20)
+                .scale(150)
                 .translate([393 / 2, 400 / 2]);
 
-            let [xCordinat, yCordinat] = geoCordinatesInput([previousCords.latitude.toFixed(2), previousCords.longitude.toFixed(2)]);
+            // let [xCordinat, yCordinat] = geoCordinatesInput([previousCords.latitude.toFixed(2), previousCords.longitude.toFixed(2)]);
+            let [xCordinat, yCordinat] = geoCordinatesInput([pos.coords.latitude, pos.coords.longitude]);
             // let yCordinat = geoCordinatesInput([previousCords.longitude]);
             console.log(xCordinat)
 
