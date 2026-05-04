@@ -9,7 +9,7 @@ async function handler(request) {
 
     if (response.status == 404) {
         return serveDir(new Request(new URL("/index.html", request.url)), {
-            fsRoot: "."
+            fsRoot: "./client"
         })
     }
     return response;
