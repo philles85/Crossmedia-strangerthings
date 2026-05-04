@@ -30,12 +30,12 @@ class Router {
     }
 
     urlHistory() {
-        window.addEventListener("popstate", function () {
-            this.updateUrl(window.location.pathname);
+        window.addEventListener("hashchange", function () {
+            this.updateUrl(window.location.hash.replace("#", ""));
         })
     }
 
 
 }
 
-export const router = new Router("http://localhost:8000");
+export const router = new Router(window.location.origin);

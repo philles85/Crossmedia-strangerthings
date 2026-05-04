@@ -12,5 +12,5 @@ import "./globalcomponents/headerComp/headerComp.js"
 
 import { router } from "./core/router/Router.js";
 
-router.updateUrl(window.location.pathname)
+router.updateUrl(window.location.hash.replace("#", "") || "/");
 console.log(window.location.pathname)
