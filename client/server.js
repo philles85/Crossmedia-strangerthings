@@ -2,7 +2,7 @@ import { serveDir } from "https://deno.land/std/http/file_server.ts";
 
 async function handler(request) {
     const response = await serveDir(request, {
-        fsRoot: ".",
+        fsRoot: "./client",
         urlRoot: "",
         showDirListing: true
     })
