@@ -19,6 +19,6 @@ async function handler(request) {
 }
 
 Deno.serve({
-    port: Number(Deno.env.get("PORT")),
+    port: 8000,
     hostname: "0.0.0.0"
 }, handler);
