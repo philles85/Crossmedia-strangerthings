@@ -54,7 +54,7 @@ class StartMap extends HTMLElement {
                 .translate([393 / 2, 400 / 2]);
 
             // let [xCordinat, yCordinat] = geoCordinatesInput([previousCords.latitude.toFixed(2), previousCords.longitude.toFixed(2)]);
-            let [xCordinat, yCordinat] = geoCordinatesInput([pos.coords.latitude, pos.coords.longitude]);
+            let [xCordinat, yCordinat] = geoCordinatesInput([pos.coords.longitude, pos.coords.latitude]);
             // let yCordinat = geoCordinatesInput([previousCords.longitude]);
             console.log(xCordinat)
 
@@ -68,7 +68,10 @@ class StartMap extends HTMLElement {
 
         }
 
-        navigator.geolocation.watchPosition(success, error, options);
+        navigator.geolocation.watchPosition((pos) => {
+            console.log(pos.coords.latitude, pos.coords.longitude);
+        });
+        // navigator.geolocation.watchPosition(success, error, options);
 
 
 

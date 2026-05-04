@@ -1,4 +1,4 @@
-import { serveDir } from "jsr:@std/http/file-server";
+import { serveDir } from "https://deno.land/std/http/file_server.ts";
 
 async function handler(request) {
     const response = await serveDir(request, {
@@ -8,7 +8,7 @@ async function handler(request) {
     })
 
     if (response.status == 404) {
-        return serveDir(new Request(new URL("./index.html", request.url)), {
+        return serveDir(new Request(new URL("/index.html", request.url)), {
             fsRoot: "."
         })
     }
