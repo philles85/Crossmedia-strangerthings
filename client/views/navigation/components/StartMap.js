@@ -18,8 +18,8 @@ class StartMap extends HTMLElement {
 
         let svg = d3.select(Element)
             .select("svg")
-            .attr("width", 300)
-            .attr("height", 400)
+            .attr("width", 380)
+            .attr("height", 750)
             .style("border", "1px solid green");
 
         const options = {
@@ -83,7 +83,7 @@ class StartMap extends HTMLElement {
                 .attr("cx", xCordinat)
                 .attr("cy", yCordinat)
                 .attr("r", 10)
-                .style("fill", "green");
+                .style("fill", "red");
 
         });
         // navigator.geolocation.watchPosition(success, error, options);
@@ -99,22 +99,26 @@ class StartMap extends HTMLElement {
             p {
                 color: white;
             }
-            .cls-1 {
-                fill: #1d1d1b;
+            #mapContainer {
+                display:flex;   
+                justify-content: center;
             }
+
         </style>
         
-        <?xml version="1.0" encoding="UTF-8"?>
-            <svg id="Lager_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 265.68 283.72">
-            
-            <rect class="cls-1" x="16.4" y="17.05" width="249.28" height="266.67"/>
-            <image width="1107" height="1151" transform="scale(.24)" xlink:href="karta 1.png"/>
-        </svg>
-
         <p>0</p>
-        <svg>
-            <circle></circle>
-        </svg>
+
+        <div id="mapContainer">
+
+            <svg id="Lager_1" xmlns="http://www.w3.org/2000/svg">
+                <image width="100%" height="100%" href="views/navigation/components/karta1.png"/>
+            </svg>
+
+        </div>
+            
+            
+
+       
 
         `;
 
