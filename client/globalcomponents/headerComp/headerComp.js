@@ -26,7 +26,7 @@ class HeaderComp extends HTMLElement {
                     margin-top: 84px;
                 }
                 h1, h2{
-                    margin: 0px;
+                    margin: 5px;
                     letter-spacing: -1px;
                 }                
                 h1{
