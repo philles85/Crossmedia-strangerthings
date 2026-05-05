@@ -6,7 +6,8 @@ class StartMap extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
-
+        this.render();
+        this.positionLogic()
     }
 
     subs() {
@@ -80,9 +81,10 @@ class StartMap extends HTMLElement {
         // })
 
 
+        // Föregående scale var 1300000
         const geoCordinatesInput = d3.geoMercator()
-            .center([12.9958, 55.6100])
-            .scale(1300000)
+            .center([12.9940, 55.6089])
+            .scale(2667241)
             .translate([380 / 2, 500 / 2]);
 
         navigator.geolocation.watchPosition((pos) => {
@@ -106,7 +108,7 @@ class StartMap extends HTMLElement {
 
         if (currentPosCx >= 40 && currentPosCx <= 45) {
             if (currentPosCy >= 285 && currentPosCy <= 295) {
-                pubsub.publish(EVENTS)
+                pubsub.publish(EVENTS.VIEWS.NAVIGATION.MAP2);
             }
         }
 
@@ -139,9 +141,6 @@ class StartMap extends HTMLElement {
         </div>
             
             
-
-       
-
         `;
 
     }

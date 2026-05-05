@@ -6,12 +6,14 @@ class SecondMap extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
-        this.render();
-        this.positionLogic();
+        this.subs();
     }
 
     subs() {
-
+        pubsub.subscribe(EVENTS.VIEWS.NAVIGATION.MAP2, () => {
+            this.render();
+            this.positionLogic();
+        })
 
     }
 

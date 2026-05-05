@@ -12,5 +12,6 @@ import "./globalcomponents/headerComp/headerComp.js"
 
 import { router } from "./core/router/Router.js";
 
-router.updateUrl(window.location.pathname, window.location.search)
+router.updateUrl(window.location.search)
+router.urlHistoryNavigate();
 console.log(window.location.pathname)

@@ -1,5 +1,6 @@
 import { pubsub } from "../../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../../core/pubsub/events.js";
+import { router } from "../../../core/router/Router.js";
 
 class StartPageTerminal extends HTMLElement {
 
@@ -28,7 +29,7 @@ class StartPageTerminal extends HTMLElement {
         })
 
         enterButton.addEventListener("click", () => {
-            pubsub.publish(EVENTS.VIEWS.PAGE.SHOW.PODCAST);
+            router.updateUrl("?page=podcast")
         })
 
     }
@@ -125,7 +126,6 @@ class StartPageTerminal extends HTMLElement {
                 }
                 h3 {
                     color: red;
-                    margin: 0;
                 }
                 #orangeSpan {
                     color: orange;
