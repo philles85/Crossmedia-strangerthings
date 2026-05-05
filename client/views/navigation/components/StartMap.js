@@ -74,7 +74,7 @@ class StartMap extends HTMLElement {
             console.log(pos.coords.latitude, pos.coords.longitude);
             const geoCordinatesInput = d3.geoMercator()
                 .center([13.109433761205093, 55.91591059739929])
-                .scale(10000)
+                .scale(15000)
                 .translate([393 / 2, 400 / 2]);
 
             let [xCordinat, yCordinat] = geoCordinatesInput([pos.coords.longitude, pos.coords.latitude]);
@@ -112,6 +112,7 @@ class StartMap extends HTMLElement {
 
             <svg id="Lager_1" xmlns="http://www.w3.org/2000/svg">
                 <image width="100%" height="100%" href="views/navigation/components/karta1.png"/>
+                <circle></circle>
             </svg>
 
         </div>
