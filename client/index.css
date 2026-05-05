@@ -11,7 +11,8 @@ body {
     height: 852px;
     background-color: black;
 }
-main{
+
+main {
     display: flex;
     flex-direction: column;
     padding: 70px;

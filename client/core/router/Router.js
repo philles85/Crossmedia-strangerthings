@@ -7,7 +7,6 @@ class Router {
         this.baseUrl = baseUrl;
     }
 
-
     updateUrl(pathname, searchParams) {
         console.log(pathname)
         history.pushState({}, { "": pathname + searchParams });
