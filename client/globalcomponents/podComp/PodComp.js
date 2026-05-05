@@ -59,7 +59,8 @@ class Podcast extends HTMLElement {
             intervall = 2280;
 
         } else if (this.getAttribute("type") == "fas4"){
-            audio = new Audio("./globalcomponents/audios/Eleven-podd-fas4.mp3");
+            // audio = new Audio("./globalcomponents/audios/Eleven-podd-fas4.mp3");
+            audio = new Audio("./globalcomponents/audios/testSound.mp3");
             intervall = 1520;
         } 
 
@@ -98,21 +99,27 @@ class Podcast extends HTMLElement {
                 timer = 0;
                 playing = false;
             }
-
             let song = new Audio("./globalcomponents/audios/Running_Up_That_Hill.mp3");
+    
             let played = false;
             if(this.getAttribute("type") == "fas4"){
-                if(playing == false){
-                    song.play
-                }
-                else{
-                    song.pause
-                }
+                console.log(1)
+                audio.addEventListener("ended", () => {
+                    if(playing == false){
+                        console.log("hej")
+                        song.play()
+                    }
+                    else{
+                        song.pause
+                    }
+    
+                })
             }
         })
+
         let restartButton = this.shadowRoot.querySelector("#restart")
-        restartButton.addEventListener("click", () => windows.location.reload())
-        // alternativt windows.location.reload()
+        restartButton.addEventListener("click", () => window.location.reload())
+        // alternativt anropa d3_logic
     }
     
 
@@ -144,6 +151,9 @@ class Podcast extends HTMLElement {
                     display: flex;
                     align-items: center;
                     gap: 10px;
+                }
+                #restart{
+                    display: flex;
                 }
             </style>
             <div id="podcast">
