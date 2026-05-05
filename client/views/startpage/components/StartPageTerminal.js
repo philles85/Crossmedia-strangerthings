@@ -1,3 +1,6 @@
+import { pubsub } from "../../../core/pubsub/Pubsub.js";
+import { EVENTS } from "../../../core/pubsub/events.js";
+
 class StartPageTerminal extends HTMLElement {
 
     constructor() {
@@ -14,6 +17,7 @@ class StartPageTerminal extends HTMLElement {
 
     eventListeners() {
         let inputField = this.shadowRoot.querySelector("input");
+        let enterButton = this.shadowRoot.querySelector("button");
 
         inputField.addEventListener("keydown", (event) => {
             if (event.key == "Enter") {
@@ -21,6 +25,10 @@ class StartPageTerminal extends HTMLElement {
                     this.logic("end");
                 }
             }
+        })
+
+        enterButton.addEventListener("click", () => {
+            pubsub.publish(EVENTS.VIEWS.PAGE.SHOW.PODCAST);
         })
 
     }
