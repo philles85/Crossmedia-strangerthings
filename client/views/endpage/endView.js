@@ -1,6 +1,6 @@
 import "./components/endGame.js"
-import { pubsub } from "../../../core/pubsub/Pubsub.js"
-import { EVENTS } from "../../../core/pubsub/events.js"
+import { pubsub } from "../../core/pubsub/Pubsub.js"
+import { EVENTS } from "../../core/pubsub/events.js"
 
 class PodCastView {
 
