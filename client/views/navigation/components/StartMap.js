@@ -1,10 +1,12 @@
+import { pubsub } from "../../../core/pubsub/Pubsub.js";
+import { EVENTS } from "../../../core/pubsub/events.js";
+
 class StartMap extends HTMLElement {
 
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
-        this.render();
-        this.positionLogic();
+
     }
 
     subs() {
@@ -19,7 +21,7 @@ class StartMap extends HTMLElement {
         let svg = d3.select(Element)
             .select("svg")
             .attr("width", 380)
-            .attr("height", 750)
+            .attr("height", 450)
             .style("border", "1px solid green");
 
         const options = {
@@ -68,26 +70,45 @@ class StartMap extends HTMLElement {
 
         }
 
+        // const geoCordinatesInput = d3.geoMercator()
+        //     .scale(150)
+        //     .translate([380 / 2, 500 / 2]);
+
+
+        // navigator.geolocation.getCurrentPosition((pos) => {
+        //     geoCordinatesInput.center[pos.coords.longitude, pos.coords.latitude];
+        // })
+
+
+        const geoCordinatesInput = d3.geoMercator()
+            .center([12.9958, 55.6100])
+            .scale(1300000)
+            .translate([380 / 2, 500 / 2]);
+
         navigator.geolocation.watchPosition((pos) => {
             Element.querySelector("p").innerHTML = `${pos.coords.latitude}, ${pos.coords.longitude}`;
 
             console.log(pos.coords.latitude, pos.coords.longitude);
-            const geoCordinatesInput = d3.geoMercator()
-                .center([13.109433761205093, 55.91591059739929])
-                .scale(15000)
-                .translate([393 / 2, 400 / 2]);
 
             let [xCordinat, yCordinat] = geoCordinatesInput([pos.coords.longitude, pos.coords.latitude]);
 
             svg.select("circle")
                 .attr("cx", xCordinat)
                 .attr("cy", yCordinat)
-                .attr("r", 10)
-                .style("fill", "red");
+                .attr("fill", "red")
+                .attr("r", 10);
 
         });
         // navigator.geolocation.watchPosition(success, error, options);
 
+        let currentPosCx = svg.select("circle").attr("cx");
+        let currentPosCy = svg.select("circle").attr("cy");
+
+        if (currentPosCx >= 40 && currentPosCx <= 45) {
+            if (currentPosCy >= 285 && currentPosCy <= 295) {
+                pubsub.publish(EVENTS)
+            }
+        }
 
 
     }

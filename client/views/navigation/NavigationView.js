@@ -1,4 +1,6 @@
-import "./components/startMap.js";
+import "./components/StartMap.js";
+import "./components/secondMap.js";
+
 import { pubsub } from "../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../core/pubsub/events.js";
 
@@ -21,6 +23,7 @@ class NavigationView {
     render() {
         this.appContent.innerHTML = `
         <start-map></start-map>
+        <second-map></second-map>
         <p>HEJ</p>
         
         `;
