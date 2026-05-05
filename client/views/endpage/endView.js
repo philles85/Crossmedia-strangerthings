@@ -1,4 +1,5 @@
 import "./components/endGame.js"
+import "./components/riddle.js"
 import { pubsub } from "../../core/pubsub/Pubsub.js"
 import { EVENTS } from "../../core/pubsub/events.js"
 
@@ -18,8 +19,11 @@ class PodCastView {
 
 
     render() {
+        // svara på gåtan för att få podcasten 
+
         this.appContent.innerHTML = `
             <header-comp></header-comp>
+            <riddle-comp></riddle-comp>
             <end-comp></end-comp>
         `;
     }

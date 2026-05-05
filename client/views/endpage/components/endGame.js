@@ -7,6 +7,7 @@ class EndGame extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
+        this.subs()
     }
 
     subs() {
@@ -16,9 +17,8 @@ class EndGame extends HTMLElement {
     }
 
     render(){
-        // svara på gåtan för att få podcasten 
         this.shadowRoot.innerHTML = `
-            <input>Hej</input>
+        
             <podcast-comp type="fas4"></podcast-comp">
 
         `

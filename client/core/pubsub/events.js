@@ -19,7 +19,7 @@ export const EVENTS = {
 
         POPUP: {
             SHOW: {
-                AUDIO: "view:popup:show:audio"
+                AUDIO: "views:popup:show:audio"
             }
         }
 
