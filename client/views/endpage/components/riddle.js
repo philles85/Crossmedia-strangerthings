@@ -7,10 +7,20 @@ class Riddle extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
-        this.render();
-        this.eventListeners()
+        this.subs();
     }
-    // när input är korrekt ska det skickas en pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.AUDIO)
+
+    subs(){
+        pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.AUDIO, () => {
+            this.shadowRoot.innerHTML = ``;
+        })
+        pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.MENU, () =>  {
+            this.render() 
+            this.eventListeners();
+        })
+        pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.MENU)
+    }
+
     eventListeners (){
         let inputField = this.shadowRoot.querySelector("input")
         inputField.addEventListener("keydown", (e) => {
@@ -19,11 +29,14 @@ class Riddle extends HTMLElement {
             }
         });
     }
+
+
     logic (userAnswer){
         if(userAnswer === "Max"){
             let pDOM = this.shadowRoot.querySelector("p");
             pDOM.textContent = "ACCESS GRANTED. LOADING AUDIO"
             setTimeout(() => {
+                pubsub.unsubscribe(EVENTS.VIEWS.POPUP.SHOW.MENU)
                 pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.AUDIO)
             }, 1000);
         } else {
@@ -41,7 +54,7 @@ class Riddle extends HTMLElement {
                     display: flex;
                     align-items: center;
                     flex-direction: column;
-                    padding-top: 30px
+                    gap: 20px
                 }
                 #riddle input{
                     width: 100px;
@@ -51,8 +64,12 @@ class Riddle extends HTMLElement {
                     color: white;
                     text-align: center;
                 }
+                #menuImage{
+                    width: 350px;
+                }
             </style>
             <div id="riddle">
+                <img id="menuImage" src="./views/endpage/components/menu.png"/>
                 <input placeholder="Answer" type="password"/>
                 <p></p>
             </div>
