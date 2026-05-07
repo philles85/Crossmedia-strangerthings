@@ -8,6 +8,7 @@ class VideoComp {
     constructor() {
         this.appContent = document.querySelector("#app");
         this.render();
+        this.playMusic();
     }
 
     playMusic(){
@@ -20,9 +21,11 @@ class VideoComp {
             <style>
                 video{
                     transform: rotate(90deg);
-                    width: 250px;
+                    width: 90vh;
+                    margin-left: -150px;
+                    margin-top: 150px;
                 }
-            </style>
+            </style>            
             <video controls>
                 <source src="./views/lastVideo/components/StrangerThingsJohanv4.mp4" type="video/mp4"/>
             </video>
