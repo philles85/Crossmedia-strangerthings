@@ -6,7 +6,6 @@ class PodCastView {
 
     constructor() {
         this.appContent = document.querySelector("#app");
-        // this.render();
         this.subs();
     }
 
