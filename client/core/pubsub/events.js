@@ -13,13 +13,19 @@ export const EVENTS = {
 
                 ENDING: "views:page:show:ending",
 
-                SEARCHPARAMS: "views:page:show:searchparams"
+                SEARCHPARAMS: "views:page:show:searchparams",
+                
+                LASTPAGE: "views:page:show:lastpage"
             }
         },
 
         POPUP: {
             SHOW: {
-                AUDIO: "views:popup:show:audio"
+                AUDIO: "views:popup:show:audio",
+
+                MENU: "views:popup:show:menu",
+
+                TIMER: "views:popup:show:timer"
             }
         },
 
