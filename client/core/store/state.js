@@ -21,7 +21,12 @@ export const state = {
         W: 270
     },
 
-    currentMap: "karta1",
+    currentMap: {
+        mapName: "karta1",
+        centerCordinates: [12.9940, 55.6089],
+        mapSize: { width: 380, height: 500 }
+
+    },
 
     coordinates: [
         //example object
