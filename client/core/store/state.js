@@ -20,6 +20,9 @@ export const state = {
         S: 180,
         W: 270
     },
+
+    currentMap: "karta1",
+
     coordinates: [
         //example object
         {

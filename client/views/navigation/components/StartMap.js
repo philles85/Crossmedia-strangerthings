@@ -1,94 +1,64 @@
 import { pubsub } from "../../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../../core/pubsub/events.js";
+import { store } from "../../../core/store/Store.js";
 
 class StartMap extends HTMLElement {
 
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
+        this.subs();
         this.render();
-        this.positionLogic()
+        this.currentMapLogic();
+        this.positionLogic();
+        this.changeMapLogic();
     }
 
     subs() {
-
+        // Ändrar på kartan i statet när signalen kommit
+        pubsub.subscribe(EVENTS.VIEWS.NAVIGATION.MAPCHANGE, (data) => {
+            store.state = { currentMap: data.map };
+        })
 
     }
 
+    // Sätter in rätt karta
+    currentMapLogic() {
+        let currentMap = "karta1";
+
+        store.subscribe("currentMap", (data) => {
+            currentMap = data;
+        });
+
+        let imgTag = d3.select(this.shadowRoot)
+            .select("svg")
+            .select("image")
+            .attr("href", `views/navigation/components/${currentMap}.png`);
+
+        // Kanske köra om render funktionen för att rerendera?
+    }
+
+    // Positionerar ut cirkeln rätt
     positionLogic() {
         let previousCords;
-        let Element = this.shadowRoot;
 
-        let svg = d3.select(Element)
+        let svg = d3.select(this.shadowRoot)
             .select("svg")
             .attr("width", 380)
             .attr("height", 450)
             .style("border", "1px solid green");
 
-        const options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        };
-
-
-        function error(err) {
-            console.error(`ERROR(${err.code}): ${err.message}`);
-        }
-
-        function success(pos) {
-            // if (!previousCords || pos.coords.latitude != previousCords.latitude || pos.coords.longitude != previousCords.longitude) {
-            //     Element.querySelector("p").innerHTML = `${pos.coords.latitude}, ${pos.coords.longitude}`;
-
-            //     previousCords = {
-            //         latitude: pos.coords.latitude,
-            //         longitude: pos.coords.longitude
-            //     }
-
-            // }
-            Element.querySelector("p").innerHTML = `${pos.coords.latitude}, ${pos.coords.longitude}`;
-
-            console.log(pos.coords);
-
-            // let geoCordinatesInput = d3.geoMercator();
-            const geoCordinatesInput = d3.geoMercator()
-                .center([13.109433761205093, 55.91591059739929])
-                .scale(10)
-                .translate([393 / 2, 400 / 2]);
-
-            // let [xCordinat, yCordinat] = geoCordinatesInput([previousCords.latitude.toFixed(2), previousCords.longitude.toFixed(2)]);
-            let [xCordinat, yCordinat] = geoCordinatesInput([pos.coords.longitude, pos.coords.latitude]);
-            // let yCordinat = geoCordinatesInput([previousCords.longitude]);
-            console.log(xCordinat)
-
-            // let path = d3.geoPath().projection(convertCordi  nates);
-
-            svg.select("circle")
-                .attr("cx", xCordinat)
-                .attr("cy", yCordinat)
-                .attr("r", 10)
-                .style("fill", "green");
-
-        }
-
-        // const geoCordinatesInput = d3.geoMercator()
-        //     .scale(150)
-        //     .translate([380 / 2, 500 / 2]);
-
-
-        // navigator.geolocation.getCurrentPosition((pos) => {
-        //     geoCordinatesInput.center[pos.coords.longitude, pos.coords.latitude];
-        // })
-
 
         // Föregående scale var 1300000
+        // 2667241
         const geoCordinatesInput = d3.geoMercator()
             .center([12.9940, 55.6089])
-            .scale(2667241)
+            .scale(2300000)
             .translate([380 / 2, 500 / 2]);
 
         navigator.geolocation.watchPosition((pos) => {
-            Element.querySelector("p").innerHTML = `${pos.coords.latitude}, ${pos.coords.longitude}`;
+
+            this.shadowRoot.querySelector("p").innerHTML = `${pos.coords.latitude}, ${pos.coords.longitude}`;
 
             console.log(pos.coords.latitude, pos.coords.longitude);
 
@@ -101,18 +71,25 @@ class StartMap extends HTMLElement {
                 .attr("r", 10);
 
         });
-        // navigator.geolocation.watchPosition(success, error, options);
+
+
+    }
+
+    // Skickar en signal om att kartan ska bytas
+    changeMapLogic() {
+        let svg = d3.select(this.shadowRoot)
+            .select("svg");
 
         let currentPosCx = svg.select("circle").attr("cx");
         let currentPosCy = svg.select("circle").attr("cy");
 
         if (currentPosCx >= 40 && currentPosCx <= 45) {
             if (currentPosCy >= 285 && currentPosCy <= 295) {
-                pubsub.publish(EVENTS.VIEWS.NAVIGATION.MAP2);
+                pubsub.publish(EVENTS.VIEWS.NAVIGATION.MAPCHANGE, {
+                    map: "karta2"
+                });
             }
         }
-
-
     }
 
 
@@ -134,7 +111,7 @@ class StartMap extends HTMLElement {
         <div id="mapContainer">
 
             <svg id="Lager_1" xmlns="http://www.w3.org/2000/svg">
-                <image width="100%" height="100%" href="views/navigation/components/karta1.png"/>
+                <image width="100%" height="100%"/>
                 <circle></circle>
             </svg>
 

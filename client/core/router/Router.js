@@ -9,7 +9,7 @@ class Router {
 
     updateUrl(searchParams) {
 
-        let pathName = "client";
+        let pathName = window.location.pathname;
 
         history.pushState({}, "", pathName + searchParams);
 

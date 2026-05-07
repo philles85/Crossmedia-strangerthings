@@ -24,14 +24,7 @@ export const EVENTS = {
         },
 
         NAVIGATION: {
-            MAP1: "views:navigation:map1",
-
-            MAP2: "views:navigation:map2",
-
-            MAP3: "views:navigation:map3",
-
-            MAP4: "views:navigation:map4",
-            
+            MAPCHANGE: "views:navigation:mapchange"
         }
 
     },
