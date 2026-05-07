@@ -1,6 +1,6 @@
 import { pubsub } from "../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../core/pubsub/events.js";
-import { router } from "../../../core/router/Router.js";
+import { router } from "../../core/router/Router.js";
 
 
 class VideoComp {
@@ -10,7 +10,7 @@ class VideoComp {
         this.render();
     }
 
-    playMusic(){
+    playMusic() {
         let song = new Audio("../../../globalcomponents/audios/Running_Up_That_Hill.mp3");
         song.play()
     }
