@@ -10,7 +10,10 @@ class VideoComp {
         this.render();
     }
 
-
+    playMusic(){
+        let song = new Audio("../../../globalcomponents/audios/Running_Up_That_Hill.mp3");
+        song.play()
+    }
 
     render() {
         this.appContent.innerHTML = `
