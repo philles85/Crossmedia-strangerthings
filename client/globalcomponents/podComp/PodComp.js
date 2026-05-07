@@ -4,11 +4,25 @@ class Podcast extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.render()
-        this.d3_logic()
+        this.handler()
     }
     
     subs() {
 
+    }
+    handler(){
+        this.playing = false;
+        this.audio = null;
+        this.interval = null;
+        this.rSelecetion = null;
+        this.timer = null;
+        this.storeState = 0;
+        this.audioButton = this.shadowRoot.querySelector("#play");
+
+        this.setAudio()
+        this.d3_logic()
+        this.eventListerners()
+        this.reset()
     }
 
     d3_logic() {
@@ -24,103 +38,117 @@ class Podcast extends HTMLElement {
             rectArray.push({id: i, height: randomHeight})
         } 
 
-        
         let xScale = d3.scaleBand(rectArray, [0, wSvg])
             .paddingInner(.8)
             .paddingOuter(.9);
         
-        let rSelection = svg.append("g")
+        this.rSelection = svg.append("g")
             .selectAll("rect")
             .data(rectArray)
             .enter()
             .append("rect")
+            .attr("height", d => d.height)
+            .attr("width", xScale.bandwidth())
+            .attr("x", d => xScale(d))
+            .attr("y", d => (hSvg - d.height) / 2)
+            .attr("fill", "darkgrey")
                 
-                    
-        function printWaves(){
-            rSelection.attr("height", d => d.height)
-                .attr("width", xScale.bandwidth())
-                .attr("x", d => xScale(d))
-                .attr("y", d => (hSvg - d.height) / 2)
-                .attr("fill", "darkgrey")
-        }
-        printWaves()
-        let allRects = rSelection.nodes()
-        let timer = null;
-        const audioButton = this.shadowRoot.querySelector("#play");
-        let storeState = 0;
-        let audio = null;
-        let playing = false;
-        let intervall = null;
+        
+        // let song = new Audio("./globalcomponents/audios/Running_Up_That_Hill.mp3");
+        
+        // let played = false;
+        // if(this.getAttribute("type") == "fas4"){
+        //     console.log(1)
+        //     audio.addEventListener("ended", () => {
+        //         if(playing == false){
+        //             console.log("hej")
+        //             song.play()
+        //         }
+        //         else{
+        //             song.pause
+        //         }
+        
+        //     })
+        // }
 
+    }
+    setAudio(){
         if(this.getAttribute("type") == "fas1") {
-            audio = new Audio("./globalcomponents/audios/intro.mp3");
-            audio.pause;
-            audio.currentTime = 0;
-            intervall = 2280;
+            this.audio = new Audio("./globalcomponents/audios/intro.mp3");
+            this.interval = 2280;
+            // audio.pause;
+            // audio.currentTime = 0;
 
         } else if (this.getAttribute("type") == "fas4"){
             // audio = new Audio("./globalcomponents/audios/Eleven-podd-fas4.mp3");
-            audio = new Audio("./globalcomponents/audios/testSound.mp3");
-            intervall = 1520;
+            this.audio = new Audio("./globalcomponents/audios/testSound.mp3");
+            this.interval = 1520;
         } 
+    }
 
-        audioButton.addEventListener("click", function (){
-            if (playing == false){
-                audio.play();
-                audioButton.removeAttribute("id", "play");
-                audioButton.setAttribute("id", "pause");
-                audioButton.innerHTML = `
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                        <path d="M0 18V0H6V18H0Z" fill="white"/>
-                        <path d="M18 0H12V18H18V0Z" fill="white"/>
-                    </svg>
-                `;
-                timer = setInterval(function(){
-                    if (storeState >= allRects.length){
-                        clearInterval(timer);
-                        timer = 0;
-                        return;
-                    }
-                    let node = allRects[storeState];
-                    d3.select(node).attr("fill", "white");
-                    storeState++;
-                }, intervall);
-                playing = true;
-            } else if (playing == true){
-                audio.pause();
-                audioButton.removeAttribute("id", "pause");
-                audioButton.setAttribute("id", "play");
-                audioButton.innerHTML = `
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                        <path d="M0 18L18 9.29032L0 0V18Z" fill="white"/>                    
-                    </svg>
-                `;
-                clearInterval(timer);
-                timer = 0;
-                playing = false;
-            }
-            let song = new Audio("./globalcomponents/audios/Running_Up_That_Hill.mp3");
-    
-            let played = false;
-            if(this.getAttribute("type") == "fas4"){
-                console.log(1)
-                audio.addEventListener("ended", () => {
-                    if(playing == false){
-                        console.log("hej")
-                        song.play()
-                    }
-                    else{
-                        song.pause
-                    }
-    
-                })
+    eventListerners(){
+        let song = new Audio("./globalcomponents/audios/Running_Up_That_Hill.mp3");
+        
+        this.audioButton.addEventListener("click", () => {
+
+            if (this.playing == false){
+                this.playAudio();
+                song.pause()
+            } else if (this.playing == true){
+                this.pauseAudio()
             }
         })
 
-        let restartButton = this.shadowRoot.querySelector("#restart")
-        restartButton.addEventListener("click", () => window.location.reload())
-        // alternativt anropa d3_logic
+        this.audio.addEventListener("ended", (event) => {
+            if(this.getAttribute("type") == "fas4"){
+                song.play()
+                song.loop = true;
+            }
+        })
     }
+    
+    playAudio(){
+        let allRects = this.rSelection.nodes()
+        this.audio.play();
+        this.audioButton.removeAttribute("id", "play");
+        this.audioButton.setAttribute("id", "pause");
+        this.audioButton.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M0 18V0H6V18H0Z" fill="white"/>
+                <path d="M18 0H12V18H18V0Z" fill="white"/>
+            </svg>
+        `;
+
+        this.timer = setInterval(() => {
+            if (this.storeState >= allRects.length){
+                clearInterval(this.timer);
+                return;
+            }
+            let node = allRects[this.storeState];
+            d3.select(node).attr("fill", "white");
+            this.storeState++;
+        }, this.interval);
+        this.playing = true;
+    }
+
+    pauseAudio(){
+        this.audio.pause();
+        this.audioButton.removeAttribute("id", "pause");
+        this.audioButton.setAttribute("id", "play");
+        this.audioButton.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M0 18L18 9.29032L0 0V18Z" fill="white"/>                    
+            </svg>
+        `;
+        clearInterval(this.timer);
+        this.playing = false;
+    }
+
+    reset(){
+        let restartButton = this.shadowRoot.querySelector("#restart");
+        restartButton.addEventListener("click", () => window.location.reload());
+    }
+
     
 
     render() {
