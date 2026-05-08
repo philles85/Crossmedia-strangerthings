@@ -3,30 +3,41 @@ import { EVENTS } from "../../../core/pubsub/events.js";
 import { router } from "../../../core/router/Router.js";
 
 
-class VideoComp {
+class VideoComp extends HTMLElement {
 
     constructor() {
-        this.appContent = document.querySelector("#app");
+        super();
+        this.attachShadow({ mode: "open" });
         this.render();
         this.playMusic();
     }
 
     playMusic() {
+        let videoDOM = this.shadowRoot.querySelector("#videoMax")
+        console.log(videoDOM)
         let song = new Audio("../../../globalcomponents/audios/Running_Up_That_Hill.mp3");
-        song.play()
+
+        videoDOM.addEventListener("play", () => {
+            song.play()
+        })
+        videoDOM.addEventListener("pause", () => {
+            song.pause()
+        })
+        
     }
 
     render() {
-        this.appContent.innerHTML = `
+        this.shadowRoot.innerHTML = `
             <style>
                 video{
                     transform: rotate(90deg);
-                    width: 90vh;
-                    margin-left: -150px;
+                    height: 393px;
+                    margin-left: -153px;
                     margin-top: 150px;
+                    position: absolute;
                 }
             </style>            
-            <video controls>
+            <video id="videoMax" controls>
                 <source src="./views/lastVideo/components/StrangerThingsJohanv4.mp4" type="video/mp4"/>
             </video>
         `;
