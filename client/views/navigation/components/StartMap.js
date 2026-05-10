@@ -16,16 +16,6 @@ class StartMap extends HTMLElement {
     }
 
     subs() {
-        // Ändrar på kartan i statet när signalen kommit
-        pubsub.subscribe(EVENTS.VIEWS.NAVIGATION.MAPCHANGE, (data) => {
-            store.state = {
-                currentMap: {
-                    mapName: data.mapName,
-                    centerCordinates: [data.centerCordinates],
-                    mapSize: { width: data.mapSize.width, height: data.mapSize.height }
-                }
-            };
-        })
 
     }
 
@@ -45,15 +35,13 @@ class StartMap extends HTMLElement {
             .select("image")
             .attr("width", currentMapInfo.mapSize.width)
             .attr("height", currentMapInfo.mapSize.height)
-            .attr("href", `views/navigation/components/${currentMapInfo.mapName}.png`);
+            .attr("href", `assets/images/${currentMapInfo.mapName}.png`);
 
         // Kanske köra om render funktionen för att rerendera?
     }
 
     // Positionerar ut cirkeln rätt
     positionLogic() {
-        let previousCords;
-
         let svg = d3.select(this.shadowRoot)
             .select("svg")
 
@@ -75,8 +63,6 @@ class StartMap extends HTMLElement {
             .center([12.9940, 55.6089])
             .scale(1600000)
             .translate([svg.select("image").attr("width") / 2, svg.select("image").attr("height") / 2]);
-
-        let currentMapState = store.state.currentMap;
 
         navigator.geolocation.watchPosition((pos) => {
             this.currentCordinates.longitude = pos.coords.longitude;
@@ -106,6 +92,7 @@ class StartMap extends HTMLElement {
 
     }
 
+    // Används för att få ut verkliga x och y position på den nerskalade kartan
     getSVGCoords(event, svgElement) {
         const rect = svgElement.getBoundingClientRect();
 
@@ -119,6 +106,7 @@ class StartMap extends HTMLElement {
     }
 
 
+    // Returnerar X position för cirkeln på kartan
     newCalculateXLocation(x1, x2, longitude1, longitude2, currentLongitude) {
 
         let scaleX = (x2 - x1) / (longitude2 - longitude1);
@@ -127,6 +115,7 @@ class StartMap extends HTMLElement {
         return scaleX * currentLongitude + offsetX;
     }
 
+    // Retunrerar Y position för cirkeln på kartan
     newCalculateYLocation(y1, y2, latitude1, latitude2, currentLatitude) {
 
         let scaleY = (y2 - y1) / (latitude2 - latitude1);
@@ -136,42 +125,11 @@ class StartMap extends HTMLElement {
     }
 
 
-
-
-    calculateXLocation(currentLongitude, maxLongitude, minLongitude, mapWidth) {
-        let targetDiff = currentLongitude - minLongitude;
-        let maxDiff = maxLongitude - minLongitude;
-
-        let x = mapWidth * (targetDiff / maxDiff);
-
-        return x;
-    }
-
-    calculateYLocation(currentLatitude, maxLatitude, minLatitude, mapHeight) {
-        let targetDiff = currentLatitude - minLatitude;
-        let maxDiff = maxLatitude - minLatitude;
-
-        let y = mapHeight * (1 - (targetDiff / maxDiff));
-
-        return y;
-    }
-
-
     // Skickar en signal om att kartan ska bytas
     changeMapLogic() {
         let svg = d3.select(this.shadowRoot)
             .select("svg");
 
-        // let currentPosCx = svg.select("circle").attr("cx");
-        // let currentPosCy = svg.select("circle").attr("cy");
-
-        // if (currentPosCx >= 40 && currentPosCx <= 45) {
-        //     if (currentPosCy >= 285 && currentPosCy <= 295) {
-        //         pubsub.publish(EVENTS.VIEWS.NAVIGATION.MAPCHANGE, {
-        //             map: "karta2"
-        //         });
-        //     }
-        // }
         let cordinateDifference = this.calculateDistance(12.989923, 55.608916, this.currentCordinates.longitude, this.currentCordinates.latitude);
         console.log(cordinateDifference);
         // Kontrollerar så att kordinaterna cirklen är inom radiet
@@ -187,6 +145,7 @@ class StartMap extends HTMLElement {
         }
     }
 
+    // Returnerar geoKordinater, X och Y för alla segment punkter 
     changePointCordinates() {
         let cordinateDifferencePoint1A = this.calculateDistance(12.991251, 55.609058, this.currentCordinates.longitude, this.currentCordinates.latitude);
         let cordinateDifferencePoint1B = this.calculateDistance(12.993685, 55.609345, this.currentCordinates.longitude, this.currentCordinates.latitude);
@@ -228,7 +187,7 @@ class StartMap extends HTMLElement {
     }
 
 
-
+    // HAVERSINE FORMEL, men kan byggas om till avståndsformeln istället
     calculateDistance(longitude1, latitude1, longitude2, latitude2) {
         const earthRadius = 6371000;
 

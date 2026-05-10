@@ -1,4 +1,4 @@
-import "./components/StartMap.js";
+import "./components/startMap.js";
 
 import { pubsub } from "../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../core/pubsub/events.js";
