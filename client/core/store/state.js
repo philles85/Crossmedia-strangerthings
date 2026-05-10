@@ -23,8 +23,8 @@ export const state = {
 
     currentMap: {
         mapName: "karta1",
-        centerCordinates: [12.9940, 55.6089],
-        mapSize: { width: 380, height: 500 }
+        cordinates: { pointA: { long: 12.990065, x: 126, lat: 55.608927, y: 732 }, pointB: { long: 12.998400, x: 991, lat: 55.609754, y: 631 } },
+        mapSize: { width: 1107, height: 1151 }
 
     },
 
