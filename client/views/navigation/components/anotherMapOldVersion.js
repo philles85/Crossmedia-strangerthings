@@ -1,0 +1,279 @@
+import { pubsub } from "../../../core/pubsub/Pubsub.js";
+import { EVENTS } from "../../../core/pubsub/events.js";
+import { store } from "../../../core/store/Store.js";
+
+class StartMap extends HTMLElement {
+
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+        this.currentCordinates = { longitude: 0, latitude: 0 };
+        this.previousMapCordinates = { x: null, y: null };
+        this.targetX = null;
+        this.targetY = null;
+
+        store.subscribe("currentMap", (data) => {
+            this.currentMapLogic(data);
+        });
+
+        this.subs();
+        this.render();
+        this.currentMapLogic();
+        this.positionLogic();
+
+    }
+
+    subs() {
+
+    }
+
+    // Sätter in rätt karta
+    currentMapLogic(data) {
+        let currentMapInfo;
+        if (!data) {
+            currentMapInfo = store.state.currentMap;
+            console.log(currentMapInfo)
+        } else {
+            currentMapInfo = data;
+        }
+
+        d3.select(this.shadowRoot)
+            .select("svg")
+            .attr("viewBox", `0 0 ${currentMapInfo.mapSize.width} ${currentMapInfo.mapSize.height}`)
+            .select("image")
+            .attr("width", currentMapInfo.mapSize.width)
+            .attr("height", currentMapInfo.mapSize.height)
+            .attr("href", `assets/images/${currentMapInfo.mapName}.png`);
+
+        // Kanske köra om render funktionen för att rerendera?
+    }
+
+    // Positionerar ut cirkeln rätt
+    positionLogic() {
+        let svg = d3.select(this.shadowRoot)
+            .select("svg")
+
+            .style("border", "1px solid green");
+
+
+        svg.on("click", (e) => {
+            const { x, y } = this.getSVGCoords(e, svg.node());
+            console.log("Sanna koordinater:", x, y);
+        });
+
+
+        // Föregående scale var 1300000
+        // 2667241
+        // Föregående center kordinater för karta1: 12.9940, 55.6089
+
+        //Mittpunkt för karta2 12.9821, 55.6090
+        const geoCordinatesInput = d3.geoMercator()
+            .center([12.9940, 55.6089])
+            .scale(1600000)
+            .translate([svg.select("image").attr("width") / 2, svg.select("image").attr("height") / 2]);
+
+        navigator.geolocation.watchPosition((pos) => {
+            let gpsAccuracy = pos.coords.accuracy <= 50;
+
+            this.currentCordinates.longitude = pos.coords.longitude;
+            this.currentCordinates.latitude = pos.coords.latitude;
+
+            let currentCordinatesPoints = this.changePointCordinates();
+
+            this.shadowRoot.querySelector("p").innerHTML = `${pos.coords.latitude}, ${pos.coords.longitude}`;
+
+            console.log(pos.coords.latitude, pos.coords.longitude);
+
+            // let [xCordinat, yCordinat] = geoCordinatesInput([pos.coords.longitude, pos.coords.latitude]);
+            // let xCordinat = this.calculateXLocation(pos.coords.longitude, 12.9970, 12.990332, 380)
+            // let yCordinat = this.calculateYLocation(pos.coords.latitude, 55.612563, 55.60780, 500);
+            // let xCordinat = this.newCalculateXLocation(currentCordinatesPoints.pointA.mapCoord.x, currentCordinatesPoints.pointB.mapCoord.x, currentCordinatesPoints.pointA.geoCoord.long, currentCordinatesPoints.pointB.geoCoord.long, pos.coords.longitude);
+            // let yCordinat = this.newCalculateYLocation(currentCordinatesPoints.pointA.mapCoord.y, currentCordinatesPoints.pointB.mapCoord.y, currentCordinatesPoints.pointA.geoCoord.lat, currentCordinatesPoints.pointB.geoCoord.lat, pos.coords.latitude);
+            let newXCordinat = this.testCalculateXLocation(pos.coords.longitude, 12.990041, 12.999236, 1107);
+            let newYCordinat = this.testCalculateYLocation(pos.coords.latitude, 55.608682, 55.610801, 1151);
+
+            // if (this.previousMapCordinates.x == null || this.previousMapCordinates.y == null) {
+            //     this.previousMapCordinates.x = xCordinat;
+            //     this.previousMapCordinates.y = yCordinat;
+            // }
+
+            // if (this.targetX == null || this.targetY == null) {
+            //     this.targetX = xCordinat;
+            //     this.targetY = yCordinat;
+            // }
+
+            // if (gpsAccuracy) {
+            //     this.targetX = xCordinat;
+            //     this.targetY = yCordinat;
+            // }
+
+            // let smoothXcordinat = this.previousMapCordinates.x + (this.targetX - this.previousMapCordinates.x) * 0.15;
+            // let smoothYcordinat = this.previousMapCordinates.y + (this.targetY - this.previousMapCordinates.y) * 0.15;
+
+            svg.select("circle")
+                .attr("cx", newXCordinat)
+                .attr("cy", newYCordinat)
+                .attr("fill", "red")
+                .attr("r", 20);
+
+            this.changeMapLogic();
+
+            // this.previousMapCordinates.x = smoothXcordinat;
+            // this.previousMapCordinates.y = smoothYcordinat;
+        });
+
+
+    }
+
+    // Används för att få ut verkliga x och y position på den nerskalade kartan
+    getSVGCoords(event, svgElement) {
+        const rect = svgElement.getBoundingClientRect();
+
+        const viewBoxWidth = 1853;
+        const viewBoxHeight = 1180;
+
+        const x = (event.offsetX / rect.width) * viewBoxWidth;
+        const y = (event.offsetY / rect.height) * viewBoxHeight;
+
+        return { x, y };
+    }
+
+    testCalculateXLocation(currentLong, minLong, maxLong, width) {
+        let currentPosDiff = currentLong - minLong;
+        let pointPosDiff = maxLong - minLong;
+
+        let x = currentPosDiff / pointPosDiff;
+
+        return x * width;
+    }
+
+    testCalculateYLocation(currentLat, minLat, maxLat, height) {
+        let currentPosDiff = currentLat - minLat;
+        let pointPosDiff = maxLat - minLat;
+
+        return height - ((currentPosDiff / pointPosDiff) * height);
+    }
+
+    // Returnerar X position för cirkeln på kartan
+    newCalculateXLocation(x1, x2, longitude1, longitude2, currentLongitude) {
+
+        let scaleX = (x2 - x1) / (longitude2 - longitude1);
+        let offsetX = x1 - scaleX * longitude1;
+
+        return scaleX * currentLongitude + offsetX;
+    }
+
+    // Retunrerar Y position för cirkeln på kartan
+    newCalculateYLocation(y1, y2, latitude1, latitude2, currentLatitude) {
+
+        let scaleY = (y2 - y1) / (latitude2 - latitude1);
+        let offsetY = y1 - scaleY * latitude1;
+
+        return scaleY * currentLatitude + offsetY;
+    }
+
+
+    // Skickar en signal om att kartan ska bytas
+    changeMapLogic() {
+        let svg = d3.select(this.shadowRoot)
+            .select("svg");
+
+        let cordinateDifference = this.calculateDistance(12.989923, 55.608916, this.currentCordinates.longitude, this.currentCordinates.latitude);
+        console.log(cordinateDifference);
+        // Kontrollerar så att kordinaterna cirklen är inom radiet
+        if (cordinateDifference <= 60) {
+            // mapName: "karta2",
+            // cordinates: { pointA: { long: 12.974866, x: 95, lat: 55.609700, y: 404 }, pointB: { long: 12.989713, x: 1056, lat: 55.608868, y: 734 } },
+            // mapSize: { width: 1853, height: 1180 }
+            store.state = {
+                currentMap: {
+                    mapName: "karta1",
+                    cordinates: { pointA: { long: 12.990065, x: 126, lat: 55.608927, y: 732 }, pointB: { long: 12.998400, x: 991, lat: 55.609754, y: 631 } },
+                    mapSize: { width: 1107, height: 1151 }
+                }
+            };
+
+        }
+    }
+
+    // Returnerar geoKordinater, X och Y för alla segment punkter 
+    changePointCordinates() {
+
+        // Karta 1
+
+        // // let currentMapState = store.state.currentMap.cordinates;
+        // console.log(currentMapState);
+
+        // // karta2   
+
+        // for (let point of currentMapState) {
+        //     let cordinateDifferencePointA = this.calculateDistance(point.pointA.geoCoord.long, point.pointA.geoCoord.lat, this.currentCordinates.longitude, this.currentCordinates.latitude);
+        //     let cordinateDifferencePointB = this.calculateDistance(point.pointB.geoCoord.long, point.pointB.geoCoord.lat, this.currentCordinates.longitude, this.currentCordinates.latitude);
+
+        //     let segmentDistancePoint = this.calculateDistance(point.pointA.geoCoord.long, point.pointA.geoCoord.lat, point.pointB.geoCoord.long, point.pointB.geoCoord.lat);
+
+        //     let differenceInPoints = (Math.abs(cordinateDifferencePointA + cordinateDifferencePointB) - segmentDistancePoint);
+
+        //     if (differenceInPoints <= 10) {
+        //         return point;
+        //     }
+
+        // }
+
+
+
+    }
+
+
+    // HAVERSINE FORMEL, men kan byggas om till avståndsformeln istället
+    calculateDistance(longitude1, latitude1, longitude2, latitude2) {
+        const earthRadius = 6371000;
+
+        let differenceLongitude = (longitude2 - longitude1) * Math.PI / 180;
+        let differenceLatitude = (latitude2 - latitude1) * Math.PI / 180;
+
+        let area = Math.sin(differenceLatitude / 2) * Math.sin(differenceLatitude / 2) +
+            Math.cos(latitude1 * Math.PI / 180) * Math.cos(latitude2 * Math.PI / 180) *
+            Math.sin(differenceLongitude / 2) * Math.sin(differenceLongitude / 2);
+
+        let angle = 2 * Math.atan2(Math.sqrt(area), Math.sqrt(1 - area));
+
+        return earthRadius * angle;
+
+    }
+
+
+    render() {
+        this.shadowRoot.innerHTML = `
+        <style>
+            p {
+                color: white;
+            }
+            #mapContainer {
+                display:flex;   
+                justify-content: center;
+            }
+
+        </style>
+        
+        <p>0</p>
+
+        <div id="mapContainer">
+
+            <svg id="Lager_1" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+                <image x="0" y="0"/>
+                <circle></circle>
+            </svg>
+
+        </div>
+            
+            
+        `;
+
+    }
+
+
+}
+
+
+// customElements.define("start-map", StartMap);

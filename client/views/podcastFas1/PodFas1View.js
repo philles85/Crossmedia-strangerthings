@@ -1,4 +1,5 @@
 import "../../globalcomponents/podComp/PodComp.js";
+import "../../globalcomponents/timercomp/TimerComponent.js";
 import { pubsub } from "../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../core/pubsub/events.js";
 
@@ -20,6 +21,7 @@ class PodCastView {
         this.appContent.innerHTML = `
             <header-comp></header-comp>
             <podcast-comp type="fas1"></podcast-comp>
+            <timer-footer></timer-footer>
         `;
     }
 

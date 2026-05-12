@@ -9,22 +9,20 @@ export const state = {
     },
 
     currentTime: {
+        idname: "currentTime",
         time: 10800000
     },
 
 
-    directions: {
-        // I vilken riktning sker med grader
-        N: 0,
-        E: 90,
-        S: 180,
-        W: 270
-    },
 
     currentMap: {
+        idname: "currentMap",
         mapName: "karta1",
-        cordinates: { pointA: { long: 12.990065, x: 126, lat: 55.608927, y: 732 }, pointB: { long: 12.998400, x: 991, lat: 55.609754, y: 631 } },
+        cordinates: { topLeftLong: 12.9882200, topRightLong: 13.0003500, topLeftLat: 55.6142100, bottomLeftLat: 55.6071200 },
         mapSize: { width: 1107, height: 1151 }
+        // mapName: "karta2",
+        // cordinates: { cordinates: { topLeftLong: 12.974861, topRightLong: 12.988768, topLeftLat: 55.612296, bottomLeftLat: 55.606152 } },
+        // mapSize: { width: 1853, height: 1180 }
 
     },
 
@@ -70,9 +68,6 @@ export const state = {
     ],
 
 
-    "array3": [
-
-    ]
 
 
 

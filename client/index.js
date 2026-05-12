@@ -11,8 +11,22 @@ import "./views/navigation/navigationView.js";
 import "./globalcomponents/headerComp/headerComp.js"
 
 
+
 import { router } from "./core/router/Router.js";
 
 router.updateUrl(window.location.search)
 router.urlHistoryNavigate();
 console.log(window.location.pathname)
+
+import { localStorageService } from "./core/localstorageAPI/LocalStorage.js";
+
+localStorageService.storageUpdateState();
+
+
+// TEMPORARY, FIX LATER!!!
+import { globalTime } from "./views/timer/globalTimerFunc.js";
+
+
+setInterval(() => {
+    globalTime.timerLogic();
+}, 1000)

@@ -8,7 +8,7 @@ body {
 #app {
     display: flex;
     flex-direction: column;
-    width: 393px;
+    width: 100%;
     height: 852px;
     background-color: black;
 }
@@ -18,4 +18,9 @@ main {
     flex-direction: column;
     padding: 70px;
     gap: 30px;
+}
+
+@font-face {
+    font-family: "timer-font";
+    src: url("./globalcomponents/timercomp/digital-7.ttf") format("truetype");
 }

@@ -11,6 +11,8 @@ class Timer extends HTMLElement {
         this.d3_logic();
     }
 
+
+
     subs() {
 
     }
@@ -21,9 +23,9 @@ class Timer extends HTMLElement {
 
     // LOGIC FOR COMPONENT
     d3_logic() {
-        setInterval(() => {
-            this.timerLogic();
-        }, 1000)
+        // setInterval(() => {
+        //     this.timerLogic();
+        // }, 1000)
 
         let svg = d3.select(this.shadowRoot).select("svg")
             .attr("width", 393)
@@ -76,17 +78,20 @@ class Timer extends HTMLElement {
             }
 
             g.text(`${hours}:${minutes}:${seconds}`);
+
         })
 
     }
 
-    timerLogic() {
-        let currTime = store.state.currentTime.time;
+    // timerLogic() {
+    //     let currTime = store.state.currentTime.time;
 
-        currTime = currTime - 1000;
+    //     currTime = currTime - 1000;
 
-        store.state = { currentTime: { time: currTime } };
-    }
+    //     store.state = { currentTime: { time: currTime } };
+    // }
+
+
 
 
     render() {

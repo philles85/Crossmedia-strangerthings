@@ -22,7 +22,7 @@ class NavigationView {
     render() {
         this.appContent.innerHTML = `
         <start-map></start-map>
-        <p>HEJ</p>
+        <timer-footer></timer-footer>
         
         `;
     }

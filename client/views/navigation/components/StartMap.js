@@ -8,6 +8,16 @@ class StartMap extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.currentCordinates = { longitude: 0, latitude: 0 };
+
+        this.currentMapCordinates = { topLeftLong: 12.9882200, topRightLong: 13.0003500, topLeftLat: 55.6142100, bottomLeftLat: 55.6071200 };
+        this.currentMapSize = { width: 1107, height: 1151 }
+
+        store.subscribe("currentMap", (data) => {
+            this.currentMapLogic(data);
+            this.currentMapCordinates = data.cordinates;
+            this.currentMapSize = data.mapSize;
+        });
+
         this.subs();
         this.render();
         this.currentMapLogic();
@@ -20,14 +30,15 @@ class StartMap extends HTMLElement {
     }
 
     // Sätter in rätt karta
-    currentMapLogic() {
-        let currentMapInfo = store.state.currentMap;
-        console.log(currentMapInfo)
-
-
-        store.subscribe("currentMap", (data) => {
+    currentMapLogic(data) {
+        let currentMapInfo;
+        if (!data) {
+            currentMapInfo = store.state.currentMap;
+            console.log(currentMapInfo)
+        } else {
             currentMapInfo = data;
-        });
+            this.currentMapCordinates = data.cordinates;
+        }
 
         d3.select(this.shadowRoot)
             .select("svg")
@@ -65,21 +76,24 @@ class StartMap extends HTMLElement {
             .translate([svg.select("image").attr("width") / 2, svg.select("image").attr("height") / 2]);
 
         navigator.geolocation.watchPosition((pos) => {
+            let gpsAccuracy = pos.coords.accuracy <= 50;
+            console.log(this.currentMapCordinates);
             this.currentCordinates.longitude = pos.coords.longitude;
             this.currentCordinates.latitude = pos.coords.latitude;
-
-            let currentCordinatesPoints = this.changePointCordinates();
 
             this.shadowRoot.querySelector("p").innerHTML = `${pos.coords.latitude}, ${pos.coords.longitude}`;
 
             console.log(pos.coords.latitude, pos.coords.longitude);
 
             // let [xCordinat, yCordinat] = geoCordinatesInput([pos.coords.longitude, pos.coords.latitude]);
-            // let xCordinat = this.calculateXLocation(pos.coords.longitude, 12.9970, 12.990332, 380)
-            // let yCordinat = this.calculateYLocation(pos.coords.latitude, 55.612563, 55.60780, 500);
-            let xCordinat = this.newCalculateXLocation(currentCordinatesPoints.pointA.mapCoord.x, currentCordinatesPoints.pointB.mapCoord.x, currentCordinatesPoints.pointA.geoCoord.long, currentCordinatesPoints.pointB.geoCoord.long, pos.coords.longitude);
-            let yCordinat = this.newCalculateYLocation(currentCordinatesPoints.pointA.mapCoord.y, currentCordinatesPoints.pointB.mapCoord.y, currentCordinatesPoints.pointA.geoCoord.lat, currentCordinatesPoints.pointB.geoCoord.lat, pos.coords.latitude);
 
+            // Previous coords: xCordinat: 12.989553, 12.997465,
+            // yCordinat: 55.612422, 55.607342
+            let xCordinat = this.getXPosition(pos.coords.longitude, this.currentMapCordinates.topLeftLong, this.currentMapCordinates.topRightLong, this.currentMapSize.width);
+            let yCordinat = this.getYPosition(pos.coords.latitude, this.currentMapCordinates.topLeftLat, this.currentMapCordinates.bottomLeftLat, this.currentMapSize.height);
+
+
+            console.log(this.currentMapSize)
             svg.select("circle")
                 .attr("cx", xCordinat)
                 .attr("cy", yCordinat)
@@ -87,17 +101,38 @@ class StartMap extends HTMLElement {
                 .attr("r", 20);
 
             this.changeMapLogic();
+
         });
 
 
+    }
+
+    getXPosition(userLong, topLeftLong, topRightLong, width) {
+        let userDiff = userLong - topLeftLong;
+
+        let coordDiff = topRightLong - topLeftLong;
+
+        let xRatio = userDiff / coordDiff;
+
+        return xRatio * width;
+    }
+
+    getYPosition(userLat, topLeftLat, bottomLeftLat, height) {
+        let userDiff = topLeftLat - userLat;
+
+        let coordDiff = topLeftLat - bottomLeftLat;
+
+        let yRatio = userDiff / coordDiff;
+
+        return yRatio * height;
     }
 
     // Används för att få ut verkliga x och y position på den nerskalade kartan
     getSVGCoords(event, svgElement) {
         const rect = svgElement.getBoundingClientRect();
 
-        const viewBoxWidth = 1107;
-        const viewBoxHeight = 1151;
+        const viewBoxWidth = 1853;
+        const viewBoxHeight = 1180;
 
         const x = (event.offsetX / rect.width) * viewBoxWidth;
         const y = (event.offsetY / rect.height) * viewBoxHeight;
@@ -105,87 +140,94 @@ class StartMap extends HTMLElement {
         return { x, y };
     }
 
-
-    // Returnerar X position för cirkeln på kartan
-    newCalculateXLocation(x1, x2, longitude1, longitude2, currentLongitude) {
-
-        let scaleX = (x2 - x1) / (longitude2 - longitude1);
-        let offsetX = x1 - scaleX * longitude1;
-
-        return scaleX * currentLongitude + offsetX;
-    }
-
-    // Retunrerar Y position för cirkeln på kartan
-    newCalculateYLocation(y1, y2, latitude1, latitude2, currentLatitude) {
-
-        let scaleY = (y2 - y1) / (latitude2 - latitude1);
-        let offsetY = y1 - scaleY * latitude1;
-
-        return scaleY * currentLatitude + offsetY;
-    }
-
-
     // Skickar en signal om att kartan ska bytas
     changeMapLogic() {
-        let svg = d3.select(this.shadowRoot)
-            .select("svg");
 
-        let cordinateDifference = this.calculateDistance(12.989923, 55.608916, this.currentCordinates.longitude, this.currentCordinates.latitude);
-        console.log(cordinateDifference);
-        // Kontrollerar så att kordinaterna cirklen är inom radiet
-        if (cordinateDifference <= 60) {
+        let cordinateDifferenceMap2 = this.calculateDistance(12.989923, 55.608916, this.currentCordinates.longitude, this.currentCordinates.latitude);
+        let cordinateDifferenceMap3 = this.calculateDistance(12.98805, 55.612335, this.currentCordinates.longitude, this.currentCordinates.latitude);
+        let cordinateDifferenceMap4 = this.calculateDistance(12.984289, 55.614168, this.currentCordinates.longitude, this.currentCordinates.latitude);
+        let cordinateDifferenceEnding = this.calculateDistance(12.974933, 55.616721, this.currentCordinates.longitude, this.currentCordinates.latitude);
+
+        let button2 = this.shadowRoot.querySelector("#map2");
+        let button3 = this.shadowRoot.querySelector("#map3");
+        let button4 = this.shadowRoot.querySelector("#map4");
+        let button5 = this.shadowRoot.querySelector("#ending");
+
+        button2.addEventListener("click", () => {
             store.state = {
                 currentMap: {
                     mapName: "karta2",
-                    cordinates: { pointA: { long: 12.974866, x: 95, lat: 55.609700, y: 404 }, pointB: { long: 12.989713, x: 1056, lat: 55.608868, y: 734 } },
+                    cordinates: { topLeftLong: 12.974861, topRightLong: 12.988768, topLeftLat: 55.612296, bottomLeftLat: 55.606152 },
                     mapSize: { width: 1853, height: 1180 }
                 }
             };
+        })
 
+        button3.addEventListener("click", () => {
+            store.state = {
+                currentMap: {
+                    mapName: "karta3",
+                    cordinates: { topLeftLong: 12.973798, topRightLong: 12.992102, topLeftLat: 55.614883, bottomLeftLat: 55.612750 },
+                    mapSize: { width: 987, height: 788 }
+                }
+            };
+        })
+
+        button4.addEventListener("click", () => {
+            store.state = {
+                currentMap: {
+                    mapName: "karta4",
+                    cordinates: { topLeftLong: 12.974578, topRightLong: 12.981476, topLeftLat: 55.616667, bottomLeftLat: 55.613867 },
+                    mapSize: { width: 1178, height: 1340 }
+                }
+            };
+        })
+
+
+        button5.addEventListener("click", () => {
+            pubsub.publish(EVENTS.VIEWS.PAGE.SHOW.ENDING);
+        })
+
+
+
+        console.log(cordinateDifferenceMap2);
+        // Kontrollerar så att kordinaterna cirklen är inom radiet
+        if (cordinateDifferenceMap2 <= 60) {
+            store.state = {
+                currentMap: {
+                    mapName: "karta2",
+                    cordinates: { cordinates: { topLeftLong: 12.974861, topRightLong: 12.988768, topLeftLat: 55.612296, bottomLeftLat: 55.606152 } },
+                    mapSize: { width: 1853, height: 1180 }
+                }
+            };
         }
+
+        if (cordinateDifferenceMap3 <= 60) {
+            store.state = {
+                currentMap: {
+                    mapName: "karta3",
+                    cordinates: { cordinates: { topLeftLong: 12.973798, topRightLong: 12.992102, topLeftLat: 55.614883, bottomLeftLat: 55.612750 } },
+                    mapSize: { width: 987, height: 788 }
+                }
+            };
+        }
+
+        if (cordinateDifferenceMap4 <= 60) {
+            store.state = {
+                currentMap: {
+                    mapName: "karta4",
+                    cordinates: { cordinates: { topLeftLong: 12.974578, topRightLong: 12.981476, topLeftLat: 55.616667, bottomLeftLat: 55.613867 } },
+                    mapSize: { width: 1178, height: 1340 }
+                }
+            };
+        }
+
+        if (cordinateDifferenceEnding <= 30) {
+            pubsub.publish(EVENTS.VIEWS.PAGE.SHOW.ENDING);
+        }
+
+
     }
-
-    // Returnerar geoKordinater, X och Y för alla segment punkter 
-    changePointCordinates() {
-        let cordinateDifferencePoint1A = this.calculateDistance(12.991251, 55.609058, this.currentCordinates.longitude, this.currentCordinates.latitude);
-        let cordinateDifferencePoint1B = this.calculateDistance(12.993685, 55.609345, this.currentCordinates.longitude, this.currentCordinates.latitude);
-        let segmentDistancePoint1 = this.calculateDistance(12.991251, 55.609058, 12.993685, 55.609345)
-
-        let cordinateDifferencePoint2B = this.calculateDistance(12.993272, 55.611075, this.currentCordinates.longitude, this.currentCordinates.latitude);
-        let segmentDistancePoint2 = this.calculateDistance(12.993685, 55.60934, 12.993272, 55.611075)
-
-        let cordinateDifferencePoint3B = this.calculateDistance(12.994147, 55.612407, this.currentCordinates.longitude, this.currentCordinates.latitude);
-        let segmentDistancePoint3 = this.calculateDistance(12.993272, 55.611075, 12.994147, 55.612407)
-
-        let cordinateDifferencePoint4B = this.calculateDistance(12.997450, 55.612398, this.currentCordinates.longitude, this.currentCordinates.latitude);
-        let segmentDistancePoint4 = this.calculateDistance(12.994147, 55.612407, 12.997450, 55.612398);
-
-        let cordinateDifferencePoint5B = this.calculateDistance(12.999242, 55.608669, this.currentCordinates.longitude, this.currentCordinates.latitude);
-        let segmentDistancePoint5 = this.calculateDistance(12.997450, 55.612398, 12.999242, 55.608669);
-        console.log(Math.abs(cordinateDifferencePoint1A + cordinateDifferencePoint1B) - segmentDistancePoint1, segmentDistancePoint1);
-
-        if ((Math.abs(cordinateDifferencePoint1A + cordinateDifferencePoint1B) - segmentDistancePoint1) <= segmentDistancePoint1) {
-            return { pointA: { geoCoord: { long: 12.991251, lat: 55.609058 }, mapCoord: { x: 216, y: 721 } }, pointB: { geoCoord: { long: 12.993685, lat: 55.609345 }, mapCoord: { x: 492, y: 690 } } };
-        }
-
-        if ((Math.abs(cordinateDifferencePoint1B + cordinateDifferencePoint2B) - segmentDistancePoint2) <= segmentDistancePoint2) {
-            return { pointA: { geoCoord: { long: 12.993685, lat: 55.609345 }, mapCoord: { x: 492, y: 690 } }, pointB: { geoCoord: { long: 12.993272, lat: 55.611075 }, mapCoord: { x: 473, y: 363 } } };
-        }
-
-        if ((Math.abs(cordinateDifferencePoint2B + cordinateDifferencePoint3B) - segmentDistancePoint3) <= segmentDistancePoint3) {
-            return { pointA: { geoCoord: { long: 12.993272, lat: 55.611075 }, mapCoord: { x: 473, y: 363 } }, pointB: { geoCoord: { long: 12.994147, lat: 55.612407 }, mapCoord: { x: 605, y: 129 } } };
-        }
-
-        if ((Math.abs(cordinateDifferencePoint3B + cordinateDifferencePoint4B) - segmentDistancePoint4) <= segmentDistancePoint4) {
-            return { pointA: { geoCoord: { long: 12.994147, lat: 55.612407 }, mapCoord: { x: 605, y: 129 } }, pointB: { geoCoord: { long: 12.997450, lat: 55.612398 }, mapCoord: { x: 946, y: 171 } } };
-        }
-
-        if ((Math.abs(cordinateDifferencePoint4B + cordinateDifferencePoint5B) - segmentDistancePoint5) <= segmentDistancePoint5) {
-            return { pointA: { geoCoord: { long: 12.997450, lat: 55.612398 }, mapCoord: { x: 946, y: 171 } }, pointB: { geoCoord: { long: 12.999242, lat: 55.608669 }, mapCoord: { x: 1084, y: 884 } } };
-        };
-
-    }
-
 
     // HAVERSINE FORMEL, men kan byggas om till avståndsformeln istället
     calculateDistance(longitude1, latitude1, longitude2, latitude2) {
@@ -213,7 +255,16 @@ class StartMap extends HTMLElement {
             }
             #mapContainer {
                 display:flex;   
+                flex-direction: column;
                 justify-content: center;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            button {
+                width: 150px;
+                height:
+                border: 1px solid red;
             }
 
         </style>
@@ -222,11 +273,15 @@ class StartMap extends HTMLElement {
 
         <div id="mapContainer">
 
-            <svg id="Lager_1" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
-                <image x="0" y="0"/>
-                <circle></circle>
+            <svg viewBox="0 0 1107 1151" style="width: 100%; height: auto;">
+                <image/>
+                <circle id="dot" r="10" fill="red" />
             </svg>
 
+            <button id="map2">Change map 2</button>
+            <button id="map3">Change map 3</button>
+            <button id="map4">Change map 4</button>
+            <button id="ending">Ending</button>
         </div>
             
             

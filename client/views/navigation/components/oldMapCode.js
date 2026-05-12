@@ -154,4 +154,42 @@ class StartMap extends HTMLElement {
 
 }
 
-customElements.define("start-map", StartMap);
+// customElements.define("start-map", StartMap);
+
+
+// let cordinateDifferencePoint1A = this.calculateDistance(12.991251, 55.609058, this.currentCordinates.longitude, this.currentCordinates.latitude);
+//         let cordinateDifferencePoint1B = this.calculateDistance(12.993685, 55.609345, this.currentCordinates.longitude, this.currentCordinates.latitude);
+//         let segmentDistancePoint1 = this.calculateDistance(12.991251, 55.609058, 12.993685, 55.609345)
+
+//         let cordinateDifferencePoint2B = this.calculateDistance(12.993272, 55.611075, this.currentCordinates.longitude, this.currentCordinates.latitude);
+//         let segmentDistancePoint2 = this.calculateDistance(12.993685, 55.60934, 12.993272, 55.611075)
+
+//         let cordinateDifferencePoint3B = this.calculateDistance(12.994147, 55.612407, this.currentCordinates.longitude, this.currentCordinates.latitude);
+//         let segmentDistancePoint3 = this.calculateDistance(12.993272, 55.611075, 12.994147, 55.612407)
+
+//         let cordinateDifferencePoint4B = this.calculateDistance(12.997450, 55.612398, this.currentCordinates.longitude, this.currentCordinates.latitude);
+//         let segmentDistancePoint4 = this.calculateDistance(12.994147, 55.612407, 12.997450, 55.612398);
+
+//         let cordinateDifferencePoint5B = this.calculateDistance(12.999242, 55.608669, this.currentCordinates.longitude, this.currentCordinates.latitude);
+//         let segmentDistancePoint5 = this.calculateDistance(12.997450, 55.612398, 12.999242, 55.608669);
+//         console.log(Math.abs(cordinateDifferencePoint1A + cordinateDifferencePoint1B) - segmentDistancePoint1, segmentDistancePoint1);
+
+//         if ((Math.abs(cordinateDifferencePoint1A + cordinateDifferencePoint1B) - segmentDistancePoint1) <= segmentDistancePoint1) {
+//             return { pointA: { geoCoord: { long: 12.991251, lat: 55.609058 }, mapCoord: { x: 216, y: 721 } }, pointB: { geoCoord: { long: 12.993685, lat: 55.609345 }, mapCoord: { x: 492, y: 690 } } };
+//         }
+
+//         if ((Math.abs(cordinateDifferencePoint1B + cordinateDifferencePoint2B) - segmentDistancePoint2) <= segmentDistancePoint2) {
+//             return { pointA: { geoCoord: { long: 12.993685, lat: 55.609345 }, mapCoord: { x: 492, y: 690 } }, pointB: { geoCoord: { long: 12.993272, lat: 55.611075 }, mapCoord: { x: 473, y: 363 } } };
+//         }
+
+//         if ((Math.abs(cordinateDifferencePoint2B + cordinateDifferencePoint3B) - segmentDistancePoint3) <= segmentDistancePoint3) {
+//             return { pointA: { geoCoord: { long: 12.993272, lat: 55.611075 }, mapCoord: { x: 473, y: 363 } }, pointB: { geoCoord: { long: 12.994147, lat: 55.612407 }, mapCoord: { x: 605, y: 129 } } };
+//         }
+
+//         if ((Math.abs(cordinateDifferencePoint3B + cordinateDifferencePoint4B) - segmentDistancePoint4) <= segmentDistancePoint4) {
+//             return { pointA: { geoCoord: { long: 12.994147, lat: 55.612407 }, mapCoord: { x: 605, y: 129 } }, pointB: { geoCoord: { long: 12.997450, lat: 55.612398 }, mapCoord: { x: 946, y: 171 } } };
+//         }
+
+//         if ((Math.abs(cordinateDifferencePoint4B + cordinateDifferencePoint5B) - segmentDistancePoint5) <= segmentDistancePoint5) {
+//             return { pointA: { geoCoord: { long: 12.997450, lat: 55.612398 }, mapCoord: { x: 946, y: 171 } }, pointB: { geoCoord: { long: 12.999242, lat: 55.608669 }, mapCoord: { x: 1084, y: 884 } } };
+//         };
