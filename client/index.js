@@ -5,6 +5,7 @@ import "./views/timer/TimerView.js";
 import "./views/endpage/endView.js";
 import "./views/lastVideo/lastVideoView.js";
 
+
 import "./views/navigation/navigationView.js";
 
 // IMPORT GLOBALCOMPONENTS HERE
