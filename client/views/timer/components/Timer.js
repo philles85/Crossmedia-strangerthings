@@ -52,9 +52,9 @@ class Timer extends HTMLElement {
 
         let currentEndAngle = Math.PI * 2;
 
-        let seconds = 59;
-        let minutes = 59;
-        let hours = 2;
+        let seconds;
+        let minutes;
+        let hours;
 
         // Fixa så endangle ändras efter varje sekund
 
@@ -67,17 +67,21 @@ class Timer extends HTMLElement {
             // Med subtraktionen här går den ner medurs och inte moturs
             svgPath.attr("d", timeCircle({ endAngle: -currentEndAngle }));
 
-            if (seconds == 0) {
-                seconds = 60;
-                minutes = minutes - 1
-            }
-            seconds = seconds - 1
-            if (minutes == 0) {
-                minutes = 59;
-                hours = hours - 1;
-            }
+            // if (seconds == 0) {
+            //     seconds = 60;
+            //     minutes = minutes - 1
+            // }
+            // seconds = seconds - 1
+            // if (minutes == 0) {
+            //     minutes = 59;
+            //     hours = hours - 1;
+            // }
 
-            g.text(`${hours}:${minutes}:${seconds}`);
+            seconds = Math.floor((data.time / 1000)) % 60;
+            minutes = Math.floor((data.time / 60000)) % 60;
+            hours = data.time / 3600000;
+
+            g.text(`${Math.trunc(hours)}:${Math.trunc(minutes)}:${seconds}`);
 
         })
 

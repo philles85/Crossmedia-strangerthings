@@ -30,6 +30,7 @@ class StartPageTerminal extends HTMLElement {
 
         enterButton.addEventListener("click", () => {
             router.updateUrl("?page=podcast")
+            pubsub.publish(EVENTS.GAME.TIMER.START);
         })
 
     }

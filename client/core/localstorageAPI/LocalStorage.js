@@ -12,12 +12,14 @@ class LocalStorage {
         // store.subscribe("currentMap", (data) => {
         //     console.log("HSS")
         //     this.setItemStorage(data);
-        // })
+        // }       
+        store.subscribe("startedTime", (data) => {
+            this.setItemStorage(data);
+            console.log("WORK")
+
+        })
     }
 
-    subStateChanges() {
-
-    }
 
     setItemStorage(data) {
         if (!data) {
@@ -38,28 +40,22 @@ class LocalStorage {
 
     storageUpdateState() {
         let newState = { ...store.state }; // Ta nuvarande state som bas
+        console.log(newState)
+        for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);
 
-        // Object.keys(localStorage).forEach(key => {
-        //     try {
-        //         const data = JSON.parse(localStorage.getItem(key));
-        //         if (data && data.idname) {
-        //             newState[data.idname] = data; // Lägg till i vårt tillfälliga objekt
-        //         }
-        //     } catch (e) { }
-        // });
+            const data = JSON.parse(localStorage.getItem(key));
 
-        // // Uppdatera store EN gång med allt vi hittat
-        // store.state = newState;
-        // console.log("Store är nu laddad med:", store.state);
-
-        for (let key in localStorage) {
-            if (newState[key]) {
+            if (data) {
+                console.log(data)
                 console.log(key)
-                const data = JSON.parse(localStorage.getItem(key));
-                newState[data.idname] = data;
+
+                store.state = { [data.idname]: data };;
+                console.log(store.state);
             }
         }
-        store.state = newState;
+
+        // store.state = newState;
     }
 
     clearStorage() {

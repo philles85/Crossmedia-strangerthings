@@ -21,12 +21,11 @@ console.log(window.location.pathname)
 import { localStorageService } from "./core/localstorageAPI/LocalStorage.js";
 
 localStorageService.storageUpdateState();
-
+// localStorageService.clearStorage();
 
 // TEMPORARY, FIX LATER!!!
-import { globalTime } from "./views/timer/globalTimerFunc.js";
+// import "./views/timer/globalTimerFunc.js";
 
+import { GlobalTimerFunc } from "./views/timer/globalTimerFunc.js";
+new GlobalTimerFunc();
 
-setInterval(() => {
-    globalTime.timerLogic();
-}, 1000)
