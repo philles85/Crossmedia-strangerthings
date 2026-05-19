@@ -14,7 +14,7 @@ export const EVENTS = {
                 ENDING: "views:page:show:ending",
 
                 SEARCHPARAMS: "views:page:show:searchparams",
-                
+
                 LASTPAGE: "views:page:show:lastpage"
             }
         },
@@ -26,6 +26,7 @@ export const EVENTS = {
                 MENU: "views:popup:show:menu",
 
                 TIMER: "views:popup:show:timer"
+
             }
         },
 
@@ -37,9 +38,11 @@ export const EVENTS = {
 
     GAME: {
         TIMER: {
-            START: "gamesystems:timer:start",
+            START: "game:timer:start",
 
-            END: "gamesystems:timer:end"
+            HALF: "game:timer:half",
+
+            END: "game:timer:end"
         },
 
         NAVIGATOR: {

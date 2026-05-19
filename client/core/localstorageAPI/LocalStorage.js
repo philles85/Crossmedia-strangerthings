@@ -18,6 +18,8 @@ class LocalStorage {
             console.log("WORK")
 
         })
+
+        this.storageUpdateState();
     }
 
 
@@ -65,4 +67,4 @@ class LocalStorage {
 
 }
 
-export const localStorageService = new LocalStorage();
+new LocalStorage();

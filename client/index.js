@@ -4,8 +4,8 @@ import "./views/podcastFas1/PodFas1View.js";
 import "./views/timer/TimerView.js";
 import "./views/endpage/endView.js";
 import "./views/lastVideo/lastVideoView.js";
-
 import "./views/navigation/navigationView.js";
+import "./views/popups/PopupView.js";
 
 // IMPORT GLOBALCOMPONENTS HERE
 import "./globalcomponents/headerComp/headerComp.js"
@@ -18,14 +18,14 @@ router.updateUrl(window.location.search)
 router.urlHistoryNavigate();
 console.log(window.location.pathname)
 
-import { localStorageService } from "./core/localstorageAPI/LocalStorage.js";
+import "./core/localstorageAPI/LocalStorage.js";
 
-localStorageService.storageUpdateState();
+// localStorageService.storageUpdateState();
 // localStorageService.clearStorage();
 
 // TEMPORARY, FIX LATER!!!
 // import "./views/timer/globalTimerFunc.js";
 
-import { GlobalTimerFunc } from "./views/timer/globalTimerFunc.js";
-new GlobalTimerFunc();
+import "./views/timer/globalTimerFunc.js";
+
 
