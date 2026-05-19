@@ -10,6 +10,7 @@ class Podcast extends HTMLElement {
     subs() {
 
     }
+
     handler(){
         this.playing = false;
         this.audio = null;
@@ -18,6 +19,8 @@ class Podcast extends HTMLElement {
         this.timer = null;
         this.storeState = 0;
         this.audioButton = this.shadowRoot.querySelector("#play");
+        this.backButton = this.shadowRoot.querySelector("#back");
+        this.forwardButton = this.shadowRoot.querySelector("#forward")
 
         this.setAudio()
         this.d3_logic()
@@ -53,23 +56,6 @@ class Podcast extends HTMLElement {
             .attr("y", d => (hSvg - d.height) / 2)
             .attr("fill", "darkgrey")
                 
-        
-        // let song = new Audio("./globalcomponents/audios/Running_Up_That_Hill.mp3");
-        
-        // let played = false;
-        // if(this.getAttribute("type") == "fas4"){
-        //     console.log(1)
-        //     audio.addEventListener("ended", () => {
-        //         if(playing == false){
-        //             console.log("hej")
-        //             song.play()
-        //         }
-        //         else{
-        //             song.pause
-        //         }
-        
-        //     })
-        // }
 
     }
     setAudio(){
@@ -98,12 +84,15 @@ class Podcast extends HTMLElement {
             }
         })
 
-        this.audio.addEventListener("ended", (event) => {
+        this.audio.addEventListener("ended", () => {
             if(this.getAttribute("type") == "fas4"){
                 song.play()
                 song.loop = true;
             }
         })
+        
+        this.backButton.addEventListener("click", () => this.back())
+        this.forwardButton.addEventListener("click", () => this.forward())
     }
     
     playAudio(){
@@ -147,6 +136,27 @@ class Podcast extends HTMLElement {
         let restartButton = this.shadowRoot.querySelector("#restart");
         restartButton.addEventListener("click", () => window.location.reload());
     }
+    back(){
+        console.log(this.audio.currentTime);
+        if(this.audio.currentTime  > 10){
+            console.log("in")
+            this.audio.pause();
+            this.audio.currentTime = this.audio.currentTime - 10;
+            clearInterval(this.timer);
+            this.storeState = this.storeState - Math.round(10 / this.interval)
+            this.playAudio()
+        }
+    }
+    forward(){
+        console.log(this.audio.currentTime);
+
+        if(!this.audio.ended){
+            console.log("in")
+            this.audio.pause();
+            this.audio.currentTime = this.audio.currentTime + 10;
+            this.audio.play();
+        }
+    }
 
     
 
@@ -161,12 +171,15 @@ class Podcast extends HTMLElement {
                     margin: 70px 20px;
                     gap: 20px;
                 }
+                #back, #forward{
+                    all: unset;
+                }
                 #play, #pause{
+                    border: 2px solid white;
+                    border-radius: 20px;
                     width: 40px;
                     height: 40px;
                     background: transparent;
-                    border: 2px solid white;
-                    border-radius: 20px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -186,6 +199,13 @@ class Podcast extends HTMLElement {
             <div id="podcast">
                 <svg id="soundWaves"></svg>
                 <div id="buttons">
+                    <button id="back">
+                        <svg width="34" height="37" viewBox="0 0 34 37" fill="none">
+                            <path opacity="100" d="M3.50904 16.1157C2.17273 21.1198 3.46742 26.6807 7.3933 30.6066C13.2512 36.4644 22.7487 36.4644 28.6066 30.6066C34.4645 24.7487 34.4645 15.2513 28.6066 9.39338C22.7487 3.53551 17 4.50005 16 4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M17.9993 7.00004L15.6854 4.51867L17.9996 2.00001" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <text x="10" y="25"  font-size="16px" fill="white">10</text>
+                        </svg>
+                    </button>
                     <button id="play">
                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                             <path d="M0 18L18 9.29032L0 0V18Z" fill="white"/>                    
@@ -197,6 +217,13 @@ class Podcast extends HTMLElement {
                             <path d="M28 8.08731H31.7123V4.375" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>    
                     </div> 
+                    <button id="forward">
+                        <svg width="34" height="37" viewBox="0 0 34 37" fill="none">
+                            <path opacity="100" d="M30.491 16.1157C31.8273 21.1198 30.5326 26.6807 26.6067 30.6066C20.7488 36.4644 11.2513 36.4644 5.39341 30.6066C-0.46447 24.7487 -0.46447 15.2513 5.39341 9.39338C11.2513 3.53551 17 4.50005 18 4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16.0007 7.00004L18.3146 4.51867L16.0004 2.00001" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <text x="10" y="25"  font-size="16px" fill="white">10</text>
+                        </svg>
+                    </button>
                 </div>
             </div>
         `;
