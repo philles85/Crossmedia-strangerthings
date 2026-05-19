@@ -10,7 +10,7 @@ export const state = {
 
     currentTime: {
         idname: "currentTime",
-        time: 10800000,
+        time: 10000,
     },
 
     startedTime: {

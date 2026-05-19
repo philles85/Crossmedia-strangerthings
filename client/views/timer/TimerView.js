@@ -2,6 +2,7 @@ import { pubsub } from "../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../core/pubsub/events.js";
 import "./components/Timer.js";
 import "../../globalcomponents/timercomp/TimerComponent.js";
+import "./components/ended.js";
 
 class StartPageView {
 
@@ -13,6 +14,9 @@ class StartPageView {
     subs() {
         pubsub.subscribe(EVENTS.VIEWS.PAGE.SHOW.TIMER, () => {
             this.render();
+        })
+        pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.TIMERENDED, () => {
+            this.render()
         })
     }
 

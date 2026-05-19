@@ -28,6 +28,13 @@ export class GlobalTimerFunc {
             }, 1000);
         }
 
+        store.subscribe("currentTime", (time) => {
+            console.log(time)
+            if(time == 0){
+                pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.TIMERENDED)
+            }
+        })
+
 
     }
 
