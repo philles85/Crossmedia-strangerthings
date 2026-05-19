@@ -18,9 +18,9 @@ class TimerComponent extends HTMLElement {
         let h3 = this.shadowRoot.querySelector("h3");
 
         store.subscribe("currentTime", (data) => {
-            seconds = Math.floor((data.time / 1000)) % 60;
-            minutes = Math.floor((data.time / 60000)) % 60;
-            hours = data.time / 3600000;
+            seconds = Math.floor((data / 1000)) % 60;
+            minutes = Math.floor((data / 60000)) % 60;
+            hours = data / 3600000;
 
             h3.innerHTML = `${Math.trunc(hours)}:${Math.trunc(minutes)}:${seconds}`;
         })
