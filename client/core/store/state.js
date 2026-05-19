@@ -8,21 +8,15 @@ export const state = {
         direction: "N"
     },
 
-    currentTime: {
-        idname: "currentTime",
-        time: 10000,
-    },
+    currentTime: 10800000,
 
-    startedTime: {
-        idname: "startedTime",
-        time: 0
-    },
+    startedTime: 0,
 
     currentMap: {
         idname: "currentMap",
         mapName: "karta1",
         cordinates: { topLeftLong: 12.9882200, topRightLong: 13.0003500, topLeftLat: 55.6142100, bottomLeftLat: 55.6071200 },
-        mapSize: { width: 1107, height: 1151 }
+        mapSize: { width: 947, height: 1102 }
         // mapName: "karta2",
         // cordinates: { cordinates: { topLeftLong: 12.974861, topRightLong: 12.988768, topLeftLat: 55.612296, bottomLeftLat: 55.606152 } },
         // mapSize: { width: 1853, height: 1180 }

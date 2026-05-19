@@ -15,14 +15,14 @@ export class GlobalTimerFunc {
         pubsub.publish(EVENTS.GAME.TIMER.HALF);
 
         pubsub.subscribe(EVENTS.GAME.TIMER.START, () => {
-            store.state = { startedTime: { idname: "startedTime", time: Date.now() } };
+            store.state = { startedTime: Date.now() };
             setInterval(() => {
                 this.timerLogic();
             }, 1000)
 
         })
-
-        if (store.state.startedTime.time) {
+        console.log(store.state)
+        if (store.state.startedTime) {
             setInterval(() => {
                 this.refreshTimerLogic();
             }, 1000);
@@ -39,17 +39,17 @@ export class GlobalTimerFunc {
     }
 
     timerLogic() {
-        let currTime = store.state.currentTime.time;
+        let currTime = store.state.currentTime;
         console.log(Date.now())
         currTime = currTime - 1000;
 
-        store.state = { currentTime: { idname: "currentTime", time: currTime } };
+        store.state = { currentTime: currTime };
     }
 
     refreshTimerLogic() {
         let totalTime = 10800000;
-        let currTime = store.state.currentTime.time;
-        let startedDate = store.state.startedTime.time;
+        let currTime = store.state.currentTime;
+        let startedDate = store.state.startedTime;
         let currentDate = Date.now();
 
         let timeDiff = currentDate - startedDate;
@@ -62,7 +62,7 @@ export class GlobalTimerFunc {
         }
 
 
-        store.state = { currentTime: { idname: "currentTime", time: currTime } };
+        store.state = { currentTime: currTime };
 
 
     }

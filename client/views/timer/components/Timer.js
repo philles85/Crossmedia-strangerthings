@@ -77,9 +77,9 @@ class Timer extends HTMLElement {
             //     hours = hours - 1;
             // }
 
-            seconds = Math.floor((data.time / 1000)) % 60;
-            minutes = Math.floor((data.time / 60000)) % 60;
-            hours = data.time / 3600000;
+            seconds = Math.floor((data / 1000)) % 60;
+            minutes = Math.floor((data / 60000)) % 60;
+            hours = data / 3600000;
 
             g.text(`${Math.trunc(hours)}:${Math.trunc(minutes)}:${seconds}`);
 

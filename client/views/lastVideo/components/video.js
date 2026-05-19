@@ -9,7 +9,8 @@ class VideoComp extends HTMLElement {
 
     playMusic() {
         let videoDOM = this.shadowRoot.querySelector("#videoMax")
-        let song = new Audio("./globalcomponents/audios/Running_Up_That_Hill.mp3");
+        console.log(videoDOM)
+        let song = new Audio("globalcomponents/audios/Running_Up_That_Hill.mp3");
 
         videoDOM.addEventListener("play", () => {
             song.play()
@@ -17,7 +18,7 @@ class VideoComp extends HTMLElement {
         videoDOM.addEventListener("pause", () => {
             song.pause()
         })
-        
+
     }
 
     render() {

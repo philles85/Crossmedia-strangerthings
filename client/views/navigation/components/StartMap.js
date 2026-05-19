@@ -71,7 +71,7 @@ class StartMap extends HTMLElement {
             this.currentCordinates.longitude = pos.coords.longitude;
             this.currentCordinates.latitude = pos.coords.latitude;
 
-            this.shadowRoot.querySelector("p").innerHTML = `Cordinates: ${pos.coords.latitude}, ${pos.coords.longitude}, Distance: ${this.calculateDistance(12.989923, 55.608916, this.currentCordinates.longitude, this.currentCordinates.latitude)}`;
+            this.shadowRoot.querySelector("p").innerHTML = `Cordinates: ${pos.coords.latitude}, ${pos.coords.longitude}, Distance: ${this.calculateDistance(12.989923, 55.608916, pos.coords.longitude, pos.coords.latitude)}`;
 
 
             console.log(pos.coords.latitude, pos.coords.longitude);
