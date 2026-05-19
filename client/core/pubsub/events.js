@@ -25,8 +25,9 @@ export const EVENTS = {
 
                 MENU: "views:popup:show:menu",
 
-                TIMER: "views:popup:show:timer"
+                TIMER: "views:popup:show:timer",
 
+                TIMERENDED: "views:popup:show:timerended"
             }
         },
 

@@ -1,8 +1,3 @@
-import { pubsub } from "../../../core/pubsub/Pubsub.js";
-import { EVENTS } from "../../../core/pubsub/events.js";
-import { router } from "../../../core/router/Router.js";
-
-
 class VideoComp extends HTMLElement {
 
     constructor() {

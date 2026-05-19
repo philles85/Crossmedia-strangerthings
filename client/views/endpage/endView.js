@@ -25,6 +25,7 @@ class PodCastView {
             <header-comp></header-comp>
             <riddle-comp></riddle-comp>
             <end-comp></end-comp>
+            <timer-footer></timer-footer>
         `;
     }
 }

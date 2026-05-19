@@ -136,17 +136,17 @@ class Podcast extends HTMLElement {
         let restartButton = this.shadowRoot.querySelector("#restart");
         restartButton.addEventListener("click", () => window.location.reload());
     }
+    
     back(){
         console.log(this.audio.currentTime);
         if(this.audio.currentTime  > 10){
             console.log("in")
             this.audio.pause();
             this.audio.currentTime = this.audio.currentTime - 10;
-            clearInterval(this.timer);
-            this.storeState = this.storeState - Math.round(10 / this.interval)
-            this.playAudio()
+            this.audio.play();
         }
     }
+
     forward(){
         console.log(this.audio.currentTime);
 
@@ -221,7 +221,7 @@ class Podcast extends HTMLElement {
                         <svg width="34" height="37" viewBox="0 0 34 37" fill="none">
                             <path opacity="100" d="M30.491 16.1157C31.8273 21.1198 30.5326 26.6807 26.6067 30.6066C20.7488 36.4644 11.2513 36.4644 5.39341 30.6066C-0.46447 24.7487 -0.46447 15.2513 5.39341 9.39338C11.2513 3.53551 17 4.50005 18 4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M16.0007 7.00004L18.3146 4.51867L16.0004 2.00001" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <text x="10" y="25"  font-size="16px" fill="white">10</text>
+                            <text x="8" y="25"  font-size="16px" fill="white">10</text>
                         </svg>
                     </button>
                 </div>

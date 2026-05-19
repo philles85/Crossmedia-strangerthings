@@ -22,7 +22,7 @@ class StartPageView {
             <header-comp></header-comp>
             <timer-circle></timer-circle>
             <timer-footer></timer-footer>
-            <halftime-popup></halftime-popup>
+            <timer-ended></timer-ended>
         `;
     }
 
