@@ -7,6 +7,12 @@ export class GlobalTimerFunc {
     constructor() {
         this.appContent = document.querySelector("#app");
 
+        // store.subscribe("currentTime", () => {
+        //     if (store.state.currentTime.time == 5400000) {
+        // }
+        // })
+
+        pubsub.publish(EVENTS.GAME.TIMER.HALF);
 
         pubsub.subscribe(EVENTS.GAME.TIMER.START, () => {
             store.state = { startedTime: { idname: "startedTime", time: Date.now() } };
@@ -60,3 +66,4 @@ export class GlobalTimerFunc {
 
 }
 
+new GlobalTimerFunc();
