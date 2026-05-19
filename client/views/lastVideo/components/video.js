@@ -15,7 +15,7 @@ class VideoComp extends HTMLElement {
     playMusic() {
         let videoDOM = this.shadowRoot.querySelector("#videoMax")
         console.log(videoDOM)
-        let song = new Audio("../../../globalcomponents/audios/Running_Up_That_Hill.mp3");
+        let song = new Audio("./views/lastVideo/components/Running_Up_That_Hill.mp3");
 
         videoDOM.addEventListener("play", () => {
             song.play()
