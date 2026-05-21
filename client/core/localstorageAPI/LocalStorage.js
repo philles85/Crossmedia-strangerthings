@@ -30,7 +30,6 @@ class LocalStorage {
         })
 
         this.storageUpdateState();
-
     }
 
 

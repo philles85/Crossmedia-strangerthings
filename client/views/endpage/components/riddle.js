@@ -32,15 +32,16 @@ class Riddle extends HTMLElement {
 
 
     logic (userAnswer){
+        let pDOM = this.shadowRoot.querySelector("p");
         if(userAnswer === "Max"){
-            let pDOM = this.shadowRoot.querySelector("p");
             pDOM.textContent = "ACCESS GRANTED. LOADING AUDIO"
             setTimeout(() => {
                 pubsub.unsubscribe(EVENTS.VIEWS.POPUP.SHOW.MENU)
                 pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.AUDIO)
             }, 1000);
+        } else if (userAnswer.toLowerCase() === "uss butterscotch"){
+            pDOM.textContent = "ACCESS DENIED. MAKE SURE TO ORDER THE RIGHT ICE CREAM"
         } else {
-            let pDOM = this.shadowRoot.querySelector("p");
             pDOM.textContent = "ACCESS DENIED. THE GATE IS STILL SEALED"
 
         }

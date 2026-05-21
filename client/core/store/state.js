@@ -8,7 +8,7 @@ export const state = {
         direction: "N"
     },
 
-    currentTime: 10800000,
+    currentTime: 10000,
 
     startedTime: 0,
 

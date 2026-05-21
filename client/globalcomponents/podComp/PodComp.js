@@ -66,7 +66,7 @@ class Podcast extends HTMLElement {
             // audio.currentTime = 0;
 
         } else if (this.getAttribute("type") == "fas4"){
-            this.audio = new Audio("./globalcomponents/audios/Eleven-podd-fas4.mp3");
+            this.audio = new Audio("./globalcomponents/audios/eleven.mp3");
             this.interval = 1520;
         } 
     }

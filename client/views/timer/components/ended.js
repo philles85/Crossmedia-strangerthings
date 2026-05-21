@@ -11,7 +11,9 @@ class TimerEnded extends HTMLElement {
         this.subs();
     }
     subs(){
-        pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.TIMERENDED, () => this.render())
+        pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.TIMERENDED, () => {
+            this.render()  
+        });
     }
 
     render() {
