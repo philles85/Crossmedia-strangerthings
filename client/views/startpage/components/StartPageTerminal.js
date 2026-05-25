@@ -139,6 +139,7 @@ class StartPageTerminal extends HTMLElement {
                     border: none;
                     border-bottom: 2px solid green;
                     color: green;
+                    font-size: 16px;
                 }
                 #commandPrompt {
                     display: none;

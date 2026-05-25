@@ -1,6 +1,7 @@
 import "../../../globalcomponents/podComp/PodComp.js";
 import { pubsub } from "../../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../../core/pubsub/events.js";
+import "../../navigation/components/startMap.js";
 
 class EndGame extends HTMLElement {
 
@@ -16,9 +17,8 @@ class EndGame extends HTMLElement {
         })
     }
 
-    render(){
+    render() {
         this.shadowRoot.innerHTML = `
-        
             <podcast-comp type="fas4"></podcast-comp">
 
         `

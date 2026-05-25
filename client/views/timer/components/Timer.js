@@ -7,14 +7,19 @@ class Timer extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
+        this.currentEndAngle = store.state.timerCircleAngle;
         this.render();
         this.d3_logic();
+        this.subs();
     }
 
 
 
     subs() {
+        store.subscribe("timerCircleAngle", (angle) => {
+            this.currentEndAngle = angle;
 
+        })
     }
 
     eventListeners() {
@@ -23,9 +28,6 @@ class Timer extends HTMLElement {
 
     // LOGIC FOR COMPONENT
     d3_logic() {
-        // setInterval(() => {
-        //     this.timerLogic();
-        // }, 1000)
 
         let svg = d3.select(this.shadowRoot).select("svg")
             .attr("width", 393)
@@ -47,10 +49,9 @@ class Timer extends HTMLElement {
             .append("text")
             .attr("transform", `translate(196.5, 200)`)
             .attr("text-anchor", "middle")
-            .style("font-size", "32px")
+            .style("font-size", "46px")
+            .style("font-family", "timer-font")
             .attr("fill", "red")
-
-        let currentEndAngle = Math.PI * 2;
 
         let seconds;
         let minutes;
@@ -59,42 +60,33 @@ class Timer extends HTMLElement {
         // Fixa så endangle ändras efter varje sekund
 
         store.subscribe("currentTime", (data) => {
-            // if (data.currentTime.time == 5400000) {
-            //     Pub
-            // }
-            currentEndAngle = currentEndAngle - 0.00058178;
 
             // Med subtraktionen här går den ner medurs och inte moturs
-            svgPath.attr("d", timeCircle({ endAngle: -currentEndAngle }));
-
-            // if (seconds == 0) {
-            //     seconds = 60;
-            //     minutes = minutes - 1
-            // }
-            // seconds = seconds - 1
-            // if (minutes == 0) {
-            //     minutes = 59;
-            //     hours = hours - 1;
-            // }
+            svgPath.attr("d", timeCircle({ endAngle: -this.currentEndAngle }));
 
             seconds = Math.floor((data / 1000)) % 60;
             minutes = Math.floor((data / 60000)) % 60;
             hours = data / 3600000;
 
-            g.text(`${Math.trunc(hours)}:${Math.trunc(minutes)}:${seconds}`);
+            if (seconds < 10) {
+                seconds = `0${seconds}`;
+            }
+
+            if (minutes < 10) {
+                minutes = `0${minutes}`
+            }
+
+            g.text(`0${Math.trunc(hours)}:${Math.trunc(minutes)}:${seconds}`);
 
         })
 
+        if (store.state.curentTime == 0) {
+            console.log(data);
+            g.text(`00:00:00`);
+
+        }
+
     }
-
-    // timerLogic() {
-    //     let currTime = store.state.currentTime.time;
-
-    //     currTime = currTime - 1000;
-
-    //     store.state = { currentTime: { time: currTime } };
-    // }
-
 
 
 

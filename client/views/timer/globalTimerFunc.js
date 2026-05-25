@@ -6,36 +6,43 @@ export class GlobalTimerFunc {
 
     constructor() {
         this.appContent = document.querySelector("#app");
+        this.timerInterval;
+        this.correctRadians = (Math.PI * 2) / 10800;
+        console.log(this.correctRadians)
+        this.subs()
 
-        // store.subscribe("currentTime", () => {
-        //     if (store.state.currentTime.time == 5400000) {
-        // }
-        // })
 
-        pubsub.publish(EVENTS.GAME.TIMER.HALF);
+    }
 
+    subs() {
         pubsub.subscribe(EVENTS.GAME.TIMER.START, () => {
             store.state = { startedTime: Date.now() };
-            setInterval(() => {
+            this.timerInterval = setInterval(() => {
                 this.timerLogic();
             }, 1000)
 
         })
-        console.log(store.state)
+        console.log(store.state.startedTime)
         if (store.state.startedTime) {
-            setInterval(() => {
+            this.timerInterval = setInterval(() => {
                 this.refreshTimerLogic();
             }, 1000);
         }
 
         store.subscribe("currentTime", (time) => {
-            console.log(time)
-            if(time == 0){
+            let currentEndAngle = store.state.timerCircleAngle;
+
+            currentEndAngle = currentEndAngle - this.correctRadians;
+
+            store.state = { timerCircleAngle: currentEndAngle };
+
+            if (time == 0) {
+                clearInterval(this.timerInterval);
+
                 pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.TIMERENDED)
+                return;
             }
         })
-
-
     }
 
     timerLogic() {
@@ -61,9 +68,7 @@ export class GlobalTimerFunc {
             currTime = totalTime - timeDiff;
         }
 
-
         store.state = { currentTime: currTime };
-
 
     }
 

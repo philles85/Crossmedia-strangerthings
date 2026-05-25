@@ -9,36 +9,57 @@ class LocalStorage {
         }
         this.selections = {
             currentTime: null,
-            startedTime: null
+            startedTime: null,
+            currentMap: null,
+            timerCircleAngle: null,
+            endingPageOpen: null,
+            lastPageOpen: null
         }
         this.storage = localStorage;
 
         store.subscribe("currentTime", (data) => {
-            // this.setItemStorage({ currentTime: data });
             this.setItemStorage({ currentTime: data });
             console.log("HSS")
         })
-        // store.subscribe("currentMap", (data) => {
-        //     console.log("HSS")
-        //     this.setItemStorage(data);
-        // }       
+
         store.subscribe("startedTime", (data) => {
-            // this.setItemStorage({ startedTime: data });
             this.setItemStorage({ startedTime: data });
             console.log("WORK")
 
         })
 
-        this.storageUpdateState();
+        store.subscribe("currentMap", (data) => {
+            console.log(data)
+            this.setItemStorage({ currentMap: data });
+            console.log("WORK")
 
+        })
+
+        store.subscribe("timerCircleAngle", (data) => {
+            this.setItemStorage({ timerCircleAngle: data })
+        })
+
+        store.subscribe("endingPageOpen", (data) => {
+            this.setItemStorage({ endingPageOpen: data });
+        })
+
+        store.subscribe("lastPageOpen", (data) => {
+            this.setItemStorage({ lastPageOpen: data });
+        })
+
+        this.storageUpdateState();
+        // this.clearStorage()
     }
 
 
     setItemStorage(data) {
         if (!data) {
+
             return;
+
         }
         localStorage.setItem(Object.keys(data), JSON.stringify(data));
+
         // this.stuffs = {
         //     ...this.stuffs,
         //     ...data
@@ -72,11 +93,9 @@ class LocalStorage {
 
         for (let key in this.selections) {
             let selection = JSON.parse(localStorage.getItem(key));
-            console.log(key)
             console.log(selection)
-
             store.state = selection;
-            console.log(store.state);
+
         }
 
 

@@ -8,10 +8,9 @@ class TimerEnded extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
-        this.subs();
+        this.render();
     }
-    subs(){
-        pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.TIMERENDED, () => this.render())
+    subs() {
     }
 
     render() {
@@ -27,11 +26,14 @@ class TimerEnded extends HTMLElement {
                 src: url("../fonts/Stranger_Things_Outlined.ttf") format("Outlined");
             }
             div{
-                position: absolute;
-                width: 100%;
-                top: 0;
-                bottom: 0;
+                position: fixed;
+                width: 300px;
+                height: 350px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
                 background: black;
+                border: 1px solid red;
                 text-align: center;
                 padding-top: 100px;
             }
