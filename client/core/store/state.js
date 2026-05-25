@@ -2,7 +2,7 @@ export const state = {
 
     timerCircleAngle: Math.PI * 2,
 
-    currentTime: 10000,
+    currentTime: 10800000,
 
     startedTime: 0,
 

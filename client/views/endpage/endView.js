@@ -24,8 +24,8 @@ class PodCastView {
         this.appContent.innerHTML = `
             <header-comp></header-comp>
             <riddle-comp></riddle-comp>
-            <end-comp></end-comp>
             <timer-footer></timer-footer>
+            <end-comp></end-comp>
         `;
     }
 }
