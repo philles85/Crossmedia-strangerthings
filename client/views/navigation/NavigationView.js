@@ -2,6 +2,7 @@ import "./components/startMap.js";
 
 import { pubsub } from "../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../core/pubsub/events.js";
+import { router } from "../../core/router/Router.js";
 
 class NavigationView {
 

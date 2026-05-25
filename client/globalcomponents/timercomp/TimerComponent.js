@@ -18,12 +18,29 @@ class TimerComponent extends HTMLElement {
         let h3 = this.shadowRoot.querySelector("h3");
 
         store.subscribe("currentTime", (data) => {
+
             seconds = Math.floor((data / 1000)) % 60;
             minutes = Math.floor((data / 60000)) % 60;
             hours = data / 3600000;
 
-            h3.innerHTML = `${Math.trunc(hours)}:${Math.trunc(minutes)}:${seconds}`;
+            if (seconds < 10) {
+                seconds = `0${seconds}`;
+            }
+
+            if (minutes < 10) {
+                minutes = `0${minutes}`
+            }
+
+            h3.innerHTML = `0${Math.trunc(hours)}:${Math.trunc(minutes)}:${seconds}`;
+
+
         })
+
+        if (store.state.currentTime == 0) {
+            h3.innerHTML = `00:00:00`;
+
+        }
+
     }
 
 
@@ -33,7 +50,6 @@ class TimerComponent extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <style>
                 div {
-                    border: 1px solid red;
                     display: flex;
                     justify-content: center;
                     align-items: center;

@@ -15,10 +15,7 @@ class Store {
             return;
         } else {
             Object.assign(this._state, newState);
-            // state = {
-            //     ...state,
-            //     ...newState
-            // }
+           
         }
 
         for (let key in newState) {

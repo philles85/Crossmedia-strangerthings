@@ -15,7 +15,9 @@ export const EVENTS = {
 
                 SEARCHPARAMS: "views:page:show:searchparams",
 
-                LASTPAGE: "views:page:show:lastpage"
+                LASTPAGE: "views:page:show:lastpage",
+
+                TIMER: "views:page:show:timer"
             }
         },
 
