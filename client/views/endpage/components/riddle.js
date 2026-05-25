@@ -32,15 +32,16 @@ class Riddle extends HTMLElement {
 
 
     logic (userAnswer){
-        if(userAnswer === "Max"){
-            let pDOM = this.shadowRoot.querySelector("p");
+        let pDOM = this.shadowRoot.querySelector("p");
+        if(userAnswer.toLowerCase() === "max"){
             pDOM.textContent = "ACCESS GRANTED. LOADING AUDIO"
             setTimeout(() => {
                 pubsub.unsubscribe(EVENTS.VIEWS.POPUP.SHOW.MENU)
                 pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.AUDIO)
             }, 1000);
+        } else if (userAnswer.toLowerCase() === "uss butterscotch"){
+            pDOM.textContent = "ACCESS DENIED. DID YOU ACTUALLY GO AND ORDER THE ICE CREAM?"
         } else {
-            let pDOM = this.shadowRoot.querySelector("p");
             pDOM.textContent = "ACCESS DENIED. THE GATE IS STILL SEALED"
 
         }
@@ -57,12 +58,13 @@ class Riddle extends HTMLElement {
                     gap: 20px
                 }
                 #riddle input{
-                    width: 100px;
+                    width: 120px;
                     background-color:
                 }
                 #riddle p{
                     color: white;
                     text-align: center;
+                    width: 350px
                 }
                 #menuImage{
                     width: 350px;
@@ -70,7 +72,7 @@ class Riddle extends HTMLElement {
             </style>
             <div id="riddle">
                 <img id="menuImage" src="./views/endpage/components/menu.png"/>
-                <input placeholder="Answer" type="password"/>
+                <input placeholder="Answer" type="text"/>
                 <p></p>
             </div>
             
