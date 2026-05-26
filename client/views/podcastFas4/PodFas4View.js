@@ -1,11 +1,10 @@
-import "./components/startMap.js";
+import "../../globalcomponents/podComp/PodComp.js";
 import "../../globalcomponents/timercomp/TimerComponent.js";
 
 import { pubsub } from "../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../core/pubsub/events.js";
 
-class NavigationView {
-
+class PodCastFas4View {
 
     constructor() {
         this.appContent = document.querySelector("#app");
@@ -13,23 +12,22 @@ class NavigationView {
     }
 
     subs() {
-        pubsub.subscribe(EVENTS.VIEWS.PAGE.SHOW.NAVIGATION, () => {
+        pubsub.subscribe(EVENTS.VIEWS.PAGE.SHOW.PODCASTFAS4, () => {
+
             this.render();
         })
     }
 
 
-
     render() {
         this.appContent.innerHTML = `
-        <start-map></start-map>
-        <timer-footer></timer-footer>
-        
+            <header-comp></header-comp>
+            <podcast-comp type="fas4"></podcast-comp>
+            <timer-footer></timer-footer>
         `;
     }
 
 
-
 }
 
-new NavigationView();
+new PodCastFas4View();

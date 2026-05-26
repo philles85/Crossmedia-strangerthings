@@ -21,6 +21,7 @@ class TimerComponent extends HTMLElement {
 
             seconds = Math.floor((data / 1000)) % 60;
             minutes = Math.floor((data / 60000)) % 60;
+            console.log(minutes)
             hours = data / 3600000;
 
             if (seconds < 10) {
@@ -31,7 +32,11 @@ class TimerComponent extends HTMLElement {
                 minutes = `0${minutes}`
             }
 
-            h3.innerHTML = `0${Math.trunc(hours)}:${Math.trunc(minutes)}:${seconds}`;
+            if (minutes == 0) {
+                minutes = `00`;
+            }
+
+            h3.innerHTML = `0${Math.trunc(hours)}:${minutes}:${seconds}`;
 
 
         })

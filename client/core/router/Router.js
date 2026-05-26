@@ -7,11 +7,23 @@ class Router {
         this.baseUrl = baseUrl;
     }
 
+    // updateUrl(searchParams) {
+    //     let pathName = window.location.pathname;
+
+    //     // 1. Pusha upp i adressfältet (görs bara när vi navigerar framåt via klick)
+    //     history.pushState({}, "", pathName + searchParams);
+
+    //     // 2. Kör den gemensamma hanteringen för att läsa URL och trigga PubSub
+    //     this.handleUrl(searchParams);
+    // }
+
     updateUrl(searchParams) {
 
         let pathName = window.location.pathname;
 
-        history.pushState({}, "", pathName + searchParams);
+        if (window.location.search !== searchParams) {
+            history.pushState({}, "", pathName + searchParams);
+        }
 
         // Lägg in en kontroll här om exempelvis url: index.html?=start, Vi måste ha en start url så webshare kan navigera en vidare
         // eftersom webshare defaultar till index.html alltid, och vi kan inte använda interna sökvägar via webshare för starta på sidan
@@ -31,6 +43,9 @@ class Router {
         pubsub.publish(EVENTS.VIEWS.PAGE.SHOW[pageName], {
             url: newUrl
         })
+    }
+
+    updateBrowserPath() {
 
     }
 

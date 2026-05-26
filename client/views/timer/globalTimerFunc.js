@@ -1,6 +1,7 @@
 import { store } from "../../core/store/Store.js";
 import { pubsub } from "../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../core/pubsub/events.js";
+import { router } from "../../core/router/Router.js";
 
 export class GlobalTimerFunc {
 
@@ -22,12 +23,6 @@ export class GlobalTimerFunc {
             }, 1000)
 
         })
-        console.log(store.state.startedTime)
-        if (store.state.startedTime) {
-            this.timerInterval = setInterval(() => {
-                this.refreshTimerLogic();
-            }, 1000);
-        }
 
         store.subscribe("currentTime", (time) => {
             let currentEndAngle = store.state.timerCircleAngle;
@@ -36,13 +31,22 @@ export class GlobalTimerFunc {
 
             store.state = { timerCircleAngle: currentEndAngle };
 
-            if (time == 0) {
+            if (time <= 0) {
+                store.state = { startedTime: 0 };
                 clearInterval(this.timerInterval);
 
-                pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.TIMERENDED)
+                router.updateUrl("?page=timerended");
                 return;
             }
         })
+
+        if (store.state.startedTime) {
+            this.timerInterval = setInterval(() => {
+                this.refreshTimerLogic();
+            }, 1000);
+        }
+
+
     }
 
     timerLogic() {

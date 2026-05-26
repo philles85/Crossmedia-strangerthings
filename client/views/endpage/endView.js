@@ -1,9 +1,8 @@
-import "./components/endGame.js"
 import "./components/riddle.js"
 import { pubsub } from "../../core/pubsub/Pubsub.js"
 import { EVENTS } from "../../core/pubsub/events.js"
 
-class PodCastView {
+class EndView {
 
     constructor() {
         this.appContent = document.querySelector("#app");
@@ -13,6 +12,7 @@ class PodCastView {
 
     subs() {
         pubsub.subscribe(EVENTS.VIEWS.PAGE.SHOW.ENDING, () => {
+            
             this.render();
         })
     }
@@ -25,9 +25,8 @@ class PodCastView {
             <header-comp></header-comp>
             <riddle-comp></riddle-comp>
             <timer-footer></timer-footer>
-            <end-comp></end-comp>
         `;
     }
 }
 
-new PodCastView();
+new EndView();

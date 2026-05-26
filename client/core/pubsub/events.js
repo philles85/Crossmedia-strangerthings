@@ -7,6 +7,8 @@ export const EVENTS = {
 
                 PODCAST: "views:page:show:podcast",
 
+                PODCASTFAS4: "views:page:show:podcastfas4",
+
                 GAMETIME: "views:page:show:TIMER",
 
                 NAVIGATION: "views:page:show:navigation",
@@ -17,7 +19,9 @@ export const EVENTS = {
 
                 LASTPAGE: "views:page:show:lastpage",
 
-                TIMER: "views:page:show:timer"
+                TIMER: "views:page:show:timer",
+
+                TIMERENDED: "views:page:show:timerended"
             }
         },
 
@@ -28,8 +32,6 @@ export const EVENTS = {
                 MENU: "views:popup:show:menu",
 
                 TIMER: "views:popup:show:timer",
-
-                TIMERENDED: "views:popup:show:timerended"
             }
         },
 

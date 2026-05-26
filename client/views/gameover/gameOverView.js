@@ -1,11 +1,9 @@
-import "./components/startMap.js";
-import "../../globalcomponents/timercomp/TimerComponent.js";
-
 import { pubsub } from "../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../core/pubsub/events.js";
+import "../../globalcomponents/timercomp/TimerComponent.js";
+import "./components/ended.js";
 
-class NavigationView {
-
+class GameOverView {
 
     constructor() {
         this.appContent = document.querySelector("#app");
@@ -13,23 +11,21 @@ class NavigationView {
     }
 
     subs() {
-        pubsub.subscribe(EVENTS.VIEWS.PAGE.SHOW.NAVIGATION, () => {
+        pubsub.subscribe(EVENTS.VIEWS.PAGE.SHOW.TIMERENDED, () => {
             this.render();
         })
-    }
 
+    }
 
 
     render() {
         this.appContent.innerHTML = `
-        <start-map></start-map>
-        <timer-footer></timer-footer>
-        
+            <timer-ended></timer-ended>
+            <timer-footer></timer-footer>
         `;
     }
 
 
-
 }
 
-new NavigationView();
+new GameOverView();

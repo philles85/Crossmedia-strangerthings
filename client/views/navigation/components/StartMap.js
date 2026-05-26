@@ -1,6 +1,7 @@
 import { pubsub } from "../../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../../core/pubsub/events.js";
 import { store } from "../../../core/store/Store.js";
+import { router } from "../../../core/router/Router.js";
 
 class StartMap extends HTMLElement {
 
@@ -205,7 +206,8 @@ class StartMap extends HTMLElement {
 
 
         // button5.addEventListener("click", () => {
-        //     pubsub.publish(EVENTS.VIEWS.PAGE.SHOW.ENDING);
+        //     // pubsub.publish(EVENTS.VIEWS.PAGE.SHOW.ENDING);
+        //     router.updateUrl("?page=ending");
         // })
 
 
@@ -251,7 +253,7 @@ class StartMap extends HTMLElement {
         if (cordinateDifferenceEnding <= 25) {
 
             if (!this.endingPageOpen) {
-                pubsub.publish(EVENTS.VIEWS.PAGE.SHOW.ENDING);
+                router.updateUrl("?page=podcastfas4");
                 this.endingPageOpen = true;
             }
 
@@ -260,10 +262,10 @@ class StartMap extends HTMLElement {
         }
 
 
-        if (codinatesDifferenceVideo <= 5) {
+        if (codinatesDifferenceVideo <= 8) {
 
             if (!this.lastPageOpen) {
-                pubsub.publish(EVENTS.VIEWS.PAGE.SHOW.LASTPAGE);
+                router.updateUrl("?page=lastpage");
                 this.lastPageOpen = true;
             }
 
@@ -324,16 +326,17 @@ class StartMap extends HTMLElement {
                 <circle id="dot" r="10" fill="red" />
             </svg>
 
-
         </div> `;
+
+        // <button id="map2">Change map 2</button>
+        // <button id="map3">Change map 3</button>
+        // <button id="map4">Change map 4</button>
+        // <button id="ending">Ending</button>
+        // <button id="map4">Change map 4</button>
 
     }
 
-    // <button id="map2">Change map 2</button>
-    // <button id="map3">Change map 3</button>
-    // <button id="map4">Change map 4</button>
-    // <button id="ending">Ending</button>
-    // <button id="map4">Change map 4</button>
+
 }
 
 

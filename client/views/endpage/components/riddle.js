@@ -1,45 +1,49 @@
 import "../../../globalcomponents/podComp/PodComp.js";
 import { pubsub } from "../../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../../core/pubsub/events.js";
+import { router } from "../../../core/router/Router.js";
 
 class Riddle extends HTMLElement {
 
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
+        this.render()
         this.subs();
+        this.eventListeners();
     }
 
-    subs(){
-        pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.AUDIO, () => {
-            this.shadowRoot.innerHTML = ``;
-        })
-        pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.MENU, () =>  {
-            this.render() 
-            this.eventListeners();
-        })
-        pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.MENU)
+    subs() {
+        // pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.AUDIO, () => {
+        //     this.shadowRoot.innerHTML = ``;
+        // })
+        // pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.MENU, () =>  {
+        //     this.render() 
+        //     this.eventListeners();
+        // })
+        // pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.MENU)
     }
 
-    eventListeners (){
+    eventListeners() {
         let inputField = this.shadowRoot.querySelector("input")
         inputField.addEventListener("keydown", (e) => {
-            if(e.key === "Enter"){
+            if (e.key === "Enter") {
                 this.logic(inputField.value)
             }
         });
     }
 
 
-    logic (userAnswer){
+    logic(userAnswer) {
         let pDOM = this.shadowRoot.querySelector("p");
-        if(userAnswer.toLowerCase() === "max"){
+        if (userAnswer.toLowerCase() === "max") {
             pDOM.textContent = "ACCESS GRANTED. LOADING AUDIO"
             setTimeout(() => {
                 pubsub.unsubscribe(EVENTS.VIEWS.POPUP.SHOW.MENU)
-                pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.AUDIO)
+                // pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.AUDIO)
+                router.updateUrl("?page=podcastfas4");
             }, 1000);
-        } else if (userAnswer.toLowerCase() === "uss butterscotch"){
+        } else if (userAnswer.toLowerCase() === "uss butterscotch") {
             pDOM.textContent = "ACCESS DENIED. DID YOU ACTUALLY GO AND ORDER THE ICE CREAM?"
         } else {
             pDOM.textContent = "ACCESS DENIED. THE GATE IS STILL SEALED"
@@ -47,7 +51,7 @@ class Riddle extends HTMLElement {
         }
     }
 
-    render(){
+    render() {
         // svara på gåtan för att få podcasten 
         this.shadowRoot.innerHTML = `
             <style>

@@ -11,11 +11,11 @@ class EndGame extends HTMLElement {
         this.subs()
     }
 
-    subs() {
-        pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.AUDIO, () => {
-            this.render()
-        })
-    }
+    // subs() {
+    //     pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.AUDIO, () => {
+    //         this.render()
+    //     })
+    // }
 
     render() {
         this.shadowRoot.innerHTML = `
