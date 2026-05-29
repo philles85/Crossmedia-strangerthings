@@ -24,22 +24,22 @@
 
 # Available Endpoints
 
-Page           |         Endpoint
------------------------------------------
-Startpage      |         ?page=startpage
-                
-Podcast        |         ?page=podcast
+Page                     Endpoint
+|---------------------------------------|
+Startpage                ?page=startpage  
 
-Timer          |         ?page=timer
+Podcast                  ?page=podcast
 
-Navigation     |         ?page=navigation
+Timer                    ?page=timer
 
-Ending         |         ?page=ending
+Navigation               ?page=navigation
 
-Podcastfas4    |         ?page=podcastfas4
+Ending                   ?page=ending
 
-Lastpage       |         ?page=lastpage
-------------------------------------------
+Podcastfas4              ?page=podcastfas4
+
+Lastpage                 ?page=lastpage
+|-----------------------------------------|
 
 
 # Architecture
