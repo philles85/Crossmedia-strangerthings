@@ -1,5 +1,6 @@
 import "../../globalcomponents/podComp/PodComp.js";
 import "../../globalcomponents/timercomp/TimerComponent.js";
+import "../navigation/components/startMap.js";
 
 import { pubsub } from "../../core/pubsub/Pubsub.js";
 import { EVENTS } from "../../core/pubsub/events.js";
@@ -21,6 +22,9 @@ class PodCastFas4View {
 
     render() {
         this.appContent.innerHTML = `
+            <div style="display:none;">
+                <start-map></start-map>
+            </div>
             <header-comp></header-comp>
             <podcast-comp type="fas4"></podcast-comp>
             <timer-footer></timer-footer>

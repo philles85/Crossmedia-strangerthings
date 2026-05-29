@@ -37,12 +37,12 @@ class StartPageTerminal extends HTMLElement {
 
     // LOGIC FOR COMPONENT
     async logic(type) {
-        // TEST FOR STARTTEXT - NOT WORKING CURRENTLY
+
+        // PROMISE FOR TO RESLOVE AFTER EACH ITTERATION
         function resolvePromise(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
-        // let string = "cd ..-cd hidden-ls_access.log-nodes_04-signal.tmp"
 
         if (type == "end") {
 

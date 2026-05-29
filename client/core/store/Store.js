@@ -3,9 +3,8 @@ import { state } from "./state.js";
 class Store {
 
     constructor(startState) {
-        // Kanske ha this.allStates för att jämföra om någon ändring skett någonstans?
         this.listeners = {};
-        // this.state ska eventuellt vara en privat variabel
+
         this._state = startState;
     }
 
@@ -15,7 +14,7 @@ class Store {
             return;
         } else {
             Object.assign(this._state, newState);
-           
+
         }
 
         for (let key in newState) {

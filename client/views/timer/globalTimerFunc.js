@@ -9,7 +9,6 @@ export class GlobalTimerFunc {
         this.appContent = document.querySelector("#app");
         this.timerInterval;
         this.correctRadians = (Math.PI * 2) / 10800;
-        console.log(this.correctRadians)
         this.subs()
 
 
@@ -61,15 +60,16 @@ export class GlobalTimerFunc {
         let totalTime = 10800000;
         let currTime = store.state.currentTime;
         let startedDate = store.state.startedTime;
+
         let currentDate = Date.now();
 
-        let timeDiff = currentDate - startedDate;
+        let timeDiffTimer = currentDate - startedDate;
 
 
-        if (timeDiff <= 0) {
+        if (timeDiffTimer <= 0) {
             currTime = currTime - 1000;
         } else {
-            currTime = totalTime - timeDiff;
+            currTime = totalTime - timeDiffTimer;
         }
 
         store.state = { currentTime: currTime };

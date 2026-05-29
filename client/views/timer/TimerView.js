@@ -17,11 +17,6 @@ class StartPageView {
             this.render();
         })
 
-        // pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.TIMERENDED, () => {
-        //     this.render();
-        //     this.appContent.innerHTML += "<timer-ended></timer-ended>"
-        // })
-
     }
 
 

@@ -8,7 +8,7 @@ body {
 #app {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 393px;
     height: 930px;
     background-color: black;
 }

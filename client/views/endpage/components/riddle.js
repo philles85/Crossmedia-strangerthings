@@ -9,19 +9,7 @@ class Riddle extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.render()
-        this.subs();
         this.eventListeners();
-    }
-
-    subs() {
-        // pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.AUDIO, () => {
-        //     this.shadowRoot.innerHTML = ``;
-        // })
-        // pubsub.subscribe(EVENTS.VIEWS.POPUP.SHOW.MENU, () =>  {
-        //     this.render() 
-        //     this.eventListeners();
-        // })
-        // pubsub.publish(EVENTS.VIEWS.POPUP.SHOW.MENU)
     }
 
     eventListeners() {

@@ -253,7 +253,7 @@ class StartMap extends HTMLElement {
         if (cordinateDifferenceEnding <= 25) {
 
             if (!this.endingPageOpen) {
-                router.updateUrl("?page=podcastfas4");
+                router.updateUrl("?page=ending");
                 this.endingPageOpen = true;
             }
 
@@ -317,7 +317,7 @@ class StartMap extends HTMLElement {
 
         </style>
         
-        <p>DESTINATION: 55.616721, 12.974933</p>
+        <p>FOLLOW THE MAP</p>
 
         <div id="mapContainer">
 

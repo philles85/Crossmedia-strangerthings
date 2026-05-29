@@ -57,11 +57,9 @@ class Timer extends HTMLElement {
         let minutes;
         let hours;
 
-        // Fixa så endangle ändras efter varje sekund
 
         store.subscribe("currentTime", (data) => {
 
-            // Med subtraktionen här går den ner medurs och inte moturs
             svgPath.attr("d", timeCircle({ endAngle: -this.currentEndAngle }));
 
             seconds = Math.floor((data / 1000)) % 60;
