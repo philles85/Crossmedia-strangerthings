@@ -24,32 +24,29 @@
 
 # Available Endpoints
 
-Page                     Endpoint
-|---------------------------------------|
-Startpage                ?page=startpage  
-
-Podcast                  ?page=podcast
-
-Timer                    ?page=timer
-
-Navigation               ?page=navigation
-
-Ending                   ?page=ending
-
-Podcastfas4              ?page=podcastfas4
-
-Lastpage                 ?page=lastpage
-|-----------------------------------------|
+| Page        | Endpoint          |
+| ----------- | ----------------- |
+| Startpage   | ?page=startpage   |
+| Podcast     | ?page=podcast     |
+| Timer       | ?page=timer       |
+| Navigation  | ?page=navigation  |
+| Ending      | ?page=ending      |
+| Podcastfas4 | ?page=podcastfas4 |
+| Lastpage    | ?page=lastpage    |
 
 
 # Architecture
 
-> Pubsub
+- Pubsub
+    > Used for communication between modules and components.
 
-> Store
+- State Management
+    > Handles UI updates depending on user state.
 
-> State
+- Store Architecture
+    > Data handling for application state management.
 
-> Javascripts webcomponents
+- Javascripts webcomponents
+    > Reusable custom HTML elements to organize the application logic and UI structure.
 
 
