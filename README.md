@@ -18,7 +18,7 @@ Replace <port> with your desired port.
 
 # Navigation
 
-> The project uses a search-param as navigation through the pages as test:
+The project uses a search-param as navigation through the pages as test:
 ?page=
 
 # Available Endpoints
