@@ -19,7 +19,7 @@ Replace <port> with your desired port.
 # Navigation
 
 The project uses a search-param as navigation through the pages as test:
-?page=
+>?page=
 
 # Available Endpoints
 
