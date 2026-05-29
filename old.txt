@@ -1,0 +1,67 @@
+  // { topLeftLong: 12.9884800, topRightLong: 13.0000200, topLeftLat: 55.6132800, bottomLeftLat: 55.6066400 },
+
+        // this.currentMapName = "karta1";
+        // this.currentMapCordinates = { topLeftLong: 12.989825, topRightLong: 12.998336, topLeftLat: 55.612500, bottomLeftLat: 55.606900 };
+        // this.currentMapSize = { width: 947, height: 1102 }
+
+
+   // let currentMapInfo;
+        // if (!data) {
+        //     currentMapInfo = store.state.currentMap;
+        //     console.log(currentMapInfo)
+        // } else {
+        //     currentMapInfo = data;
+        //     this.currentMapCordinates = data.cordinates;
+        // }
+
+
+      // DEVELOPMENT TESTING SHOW
+            // this.shadowRoot.querySelector("p").innerHTML = `Cordinates: ${pos.coords.latitude}, ${pos.coords.longitude}, Distance: ${this.calculateDistance(12.989923, 55.608916, pos.coords.longitude, pos.coords.latitude)}`;
+
+
+
+ // button2.addEventListener("click", () => {
+        //     store.state = {
+        //         currentMap: {
+        //             mapName: "karta2",
+        //             cordinates: { topLeftLong: 12.974861, topRightLong: 12.988768, topLeftLat: 55.612296, bottomLeftLat: 55.606152 },
+        //             mapSize: { width: 1853, height: 1180 }
+        //         }
+        //     };
+        // })
+
+        // button3.addEventListener("click", () => {
+        //     store.state = {
+        //         currentMap: {
+        //             mapName: "karta3",
+        //             // cordinates: { cordinates: { topLeftLong: 12.973798, topRightLong: 12.992102, topLeftLat: 55.614883, bottomLeftLat: 55.612750 } },
+        //             cordinates: { topLeftLong: 12.983754, topRightLong: 12.992198, topLeftLat: 55.615469, bottomLeftLat: 55.612463 },
+        //             mapSize: { width: 987, height: 788 }
+        //         },
+        //     };
+        // })
+
+        // button4.addEventListener("click", () => {
+        //     store.state = {
+        //         currentMap: {
+        //             mapName: "karta4",
+
+        //             // cordinates: { topLeftLong: 12.971400, topRightLong: 12.985200, topLeftLat: 55.619670, bottomLeftLat: 55.613801 }
+        //             cordinates: { topLeftLong: 12.974409, topRightLong: 12.983900, topLeftLat: 55.620026, bottomLeftLat: 55.613500 },
+        //             mapSize: { width: 1178, height: 1340 }
+        //         }
+        //     };
+        // })
+
+
+        // button5.addEventListener("click", () => {
+        //     // pubsub.publish(EVENTS.VIEWS.PAGE.SHOW.ENDING);
+        //     router.updateUrl("?page=ending");
+        // })
+
+
+ // <button id="map2">Change map 2</button>
+        // <button id="map3">Change map 3</button>
+        // <button id="map4">Change map 4</button>
+        // <button id="ending">Ending</button>
+        // <button id="map4">Change map 4</button>

@@ -12,14 +12,14 @@ deno -A server.js
 # Open the project
 
 Navigate to:
-http://localhost:<port>/client
+http://localhost:port/client
 
-Replace <port> with your desired port.
+Replace "port" with your desired port.
 
 # Navigation
 
 The project uses a search-param as navigation through the pages as test:
->?page=
+> ?page=
 
 # Available Endpoints
 
@@ -48,4 +48,5 @@ The project uses a search-param as navigation through the pages as test:
 - Javascripts webcomponents
     > Reusable custom HTML elements to organize the application logic and UI structure.
 
-
+- Localstorage
+    > Used to store the users current state in the browser.

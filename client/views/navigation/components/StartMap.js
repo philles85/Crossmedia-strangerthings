@@ -10,12 +10,6 @@ class StartMap extends HTMLElement {
         this.attachShadow({ mode: "open" });
         this.currentCordinates = { longitude: 0, latitude: 0 };
 
-        // { topLeftLong: 12.9884800, topRightLong: 13.0000200, topLeftLat: 55.6132800, bottomLeftLat: 55.6066400 },
-
-        // this.currentMapName = "karta1";
-        // this.currentMapCordinates = { topLeftLong: 12.989825, topRightLong: 12.998336, topLeftLat: 55.612500, bottomLeftLat: 55.606900 };
-        // this.currentMapSize = { width: 947, height: 1102 }
-
         this.currentMapName = store.state.currentMap.mapName;
         this.currentMapCordinates = store.state.currentMap.cordinates;
         this.currentMapSize = store.state.currentMap.mapSize;
@@ -51,15 +45,6 @@ class StartMap extends HTMLElement {
 
     // Sätter in rätt karta
     currentMapLogic(data) {
-        console.log(data)
-        // let currentMapInfo;
-        // if (!data) {
-        //     currentMapInfo = store.state.currentMap;
-        //     console.log(currentMapInfo)
-        // } else {
-        //     currentMapInfo = data;
-        //     this.currentMapCordinates = data.cordinates;
-        // }
 
         d3.select(this.shadowRoot)
             .select("svg")
@@ -69,7 +54,6 @@ class StartMap extends HTMLElement {
             .attr("height", this.currentMapSize.height)
             .attr("href", `assets/images/${this.currentMapName}.png`);
 
-        // Kanske köra om render funktionen för att rerendera?
     }
 
     // Positionerar ut cirkeln rätt
@@ -96,9 +80,6 @@ class StartMap extends HTMLElement {
             this.currentCordinates.longitude = pos.coords.longitude;
             this.currentCordinates.latitude = pos.coords.latitude;
 
-            // DEVELOPMENT TESTING SHOW
-            // this.shadowRoot.querySelector("p").innerHTML = `Cordinates: ${pos.coords.latitude}, ${pos.coords.longitude}, Distance: ${this.calculateDistance(12.989923, 55.608916, pos.coords.longitude, pos.coords.latitude)}`;
-
 
             console.log(pos.coords.latitude, pos.coords.longitude);
 
@@ -116,7 +97,6 @@ class StartMap extends HTMLElement {
             this.changeMapLogic();
 
         }, (err) => {
-            // 2. FIX: Tom eller enkel felhanterare som MÅSTE ligga som argument nummer två
             console.log(err);
 
         }, options);
@@ -166,58 +146,12 @@ class StartMap extends HTMLElement {
         let cordinateDifferenceEnding = this.calculateDistance(12.974933, 55.616721, this.currentCordinates.longitude, this.currentCordinates.latitude);
         let codinatesDifferenceVideo = this.calculateDistance(12.97369, 55.61615, this.currentCordinates.longitude, this.currentCordinates.latitude);
 
-        let button2 = this.shadowRoot.querySelector("#map2");
-        let button3 = this.shadowRoot.querySelector("#map3");
-        let button4 = this.shadowRoot.querySelector("#map4");
-        let button5 = this.shadowRoot.querySelector("#ending");
-
-        // button2.addEventListener("click", () => {
-        //     store.state = {
-        //         currentMap: {
-        //             mapName: "karta2",
-        //             cordinates: { topLeftLong: 12.974861, topRightLong: 12.988768, topLeftLat: 55.612296, bottomLeftLat: 55.606152 },
-        //             mapSize: { width: 1853, height: 1180 }
-        //         }
-        //     };
-        // })
-
-        // button3.addEventListener("click", () => {
-        //     store.state = {
-        //         currentMap: {
-        //             mapName: "karta3",
-        //             // cordinates: { cordinates: { topLeftLong: 12.973798, topRightLong: 12.992102, topLeftLat: 55.614883, bottomLeftLat: 55.612750 } },
-        //             cordinates: { topLeftLong: 12.983754, topRightLong: 12.992198, topLeftLat: 55.615469, bottomLeftLat: 55.612463 },
-        //             mapSize: { width: 987, height: 788 }
-        //         },
-        //     };
-        // })
-
-        // button4.addEventListener("click", () => {
-        //     store.state = {
-        //         currentMap: {
-        //             mapName: "karta4",
-
-        //             // cordinates: { topLeftLong: 12.971400, topRightLong: 12.985200, topLeftLat: 55.619670, bottomLeftLat: 55.613801 }
-        //             cordinates: { topLeftLong: 12.974409, topRightLong: 12.983900, topLeftLat: 55.620026, bottomLeftLat: 55.613500 },
-        //             mapSize: { width: 1178, height: 1340 }
-        //         }
-        //     };
-        // })
-
-
-        // button5.addEventListener("click", () => {
-        //     // pubsub.publish(EVENTS.VIEWS.PAGE.SHOW.ENDING);
-        //     router.updateUrl("?page=ending");
-        // })
-
-
 
         // Kontrollerar så att kordinaterna cirklen är inom radiet
         if (cordinateDifferenceMap2 <= 30) {
             store.state = {
                 currentMap: {
                     mapName: "karta2",
-                    // cordinates: { topLeftLong: 12.974861, topRightLong: 12.988768, topLeftLat: 55.612296, bottomLeftLat: 55.606152 },
                     cordinates: { topLeftLong: 12.974861, topRightLong: 12.988768, topLeftLat: 55.612296, bottomLeftLat: 55.606152 },
                     mapSize: { width: 1853, height: 1180 }
                 }
@@ -228,7 +162,6 @@ class StartMap extends HTMLElement {
             store.state = {
                 currentMap: {
                     mapName: "karta3",
-                    // cordinates: { cordinates: { topLeftLong: 12.973798, topRightLong: 12.992102, topLeftLat: 55.614883, bottomLeftLat: 55.612750 } },
                     cordinates: { topLeftLong: 12.983754, topRightLong: 12.992198, topLeftLat: 55.615469, bottomLeftLat: 55.612463 },
                     mapSize: { width: 987, height: 788 }
                 },
@@ -328,11 +261,6 @@ class StartMap extends HTMLElement {
 
         </div> `;
 
-        // <button id="map2">Change map 2</button>
-        // <button id="map3">Change map 3</button>
-        // <button id="map4">Change map 4</button>
-        // <button id="ending">Ending</button>
-        // <button id="map4">Change map 4</button>
 
     }
 
