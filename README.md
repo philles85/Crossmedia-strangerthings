@@ -4,35 +4,34 @@
 
 # Start the server
 
-> Make sure you have Deno installed or php to be able to host the frontend
+> Make sure you have Deno or PHP installed to host the frontend
 
-> Run the following command:
-> deno -A server.js
+Run the following command:
+deno -A server.js
 
 # Open the project
 
-> Navigate to 
+Navigate to:
+http://localhost:<port>/client
 
-> http://localhost:<port>/client
-
+Replace <port> with your desired port.
 
 # Navigation
 
-> The project uses a search param as navigation through the pages as test:
-
-> ?page=
+> The project uses a search-param as navigation through the pages as test:
+?page=
 
 # Available Endpoints
 
-| Page        | Endpoint          |
-| ----------- | ----------------- |
-| Startpage   | ?page=startpage   |
-| Podcast     | ?page=podcast     |
-| Timer       | ?page=timer       |
-| Navigation  | ?page=navigation  |
-| Ending      | ?page=ending      |
-| Podcastfas4 | ?page=podcastfas4 |
-| Lastpage    | ?page=lastpage    |
+| Page              | Endpoint          |
+| ----------------- | ----------------- |
+| Startpage         | ?page=startpage   |
+| Podcast           | ?page=podcast     |
+| Timer             | ?page=timer       |
+| Navigation        | ?page=navigation  |
+| Ending            | ?page=ending      |
+| Podcastfas4       | ?page=podcastfas4 |
+| Lastpage          | ?page=lastpage    |
 
 
 # Architecture
